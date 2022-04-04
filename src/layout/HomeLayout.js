@@ -92,7 +92,7 @@ const NAV_ITEMS = [
             fontSize={'sm'}
             fontWeight={400}
             variant={'link'}
-            href={'/home'}>
+            href={'/'}>
             Home
           </Button>
           <Button
