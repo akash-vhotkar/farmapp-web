@@ -23,50 +23,21 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons';
 import logo from '../assets/images/logo.png';
+import Footer from '../componant/Footer';
 
 const NAV_ITEMS = [
   {
-    label: 'Inspiration',
-    children: [
-      {
-        label: 'Explore Design Work',
-        subLabel: 'Trending Design to inspire you',
-        href: '#',
-      },
-      {
-        label: 'New & Noteworthy',
-        subLabel: 'Up-and-coming Designers',
-        href: '#',
-      },
-    ],
+    label: 'Products',
+    href: '/products',
   },
   {
-    label: 'Find Work',
-    children: [
-      {
-        label: 'Job Board',
-        subLabel: 'Find your dream design job',
-        href: '#',
-      },
-      {
-        label: 'Freelance Projects',
-        subLabel: 'An exclusive list for contract work',
-        href: '#',
-      },
-    ],
-  },
-  {
-    label: 'Learn Design',
-    href: '#',
-  },
-  {
-    label: 'Hire Designers',
-    href: '#',
+    label: 'Cart',
+    href: '/cart',
   },
 ];
 
 
-export default function WithSubnavigation() {
+ function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -116,12 +87,29 @@ export default function WithSubnavigation() {
           justify={'flex-end'}
           direction={'row'}
           spacing={6}>
+           <Button
+            as={'a'}
+            fontSize={'sm'}
+            fontWeight={400}
+            variant={'link'}
+            href={'/home'}>
+            Home
+          </Button>
           <Button
             as={'a'}
             fontSize={'sm'}
             fontWeight={400}
             variant={'link'}
-            href={'#'}>
+            href={'/products'}>
+            Products
+          </Button>
+         
+          <Button
+            as={'a'}
+            fontSize={'sm'}
+            fontWeight={400}
+            variant={'link'}
+            href={'/signin'}>
             Sign In
           </Button>
           <Button
@@ -130,7 +118,7 @@ export default function WithSubnavigation() {
             fontWeight={600}
             color={'white'}
             bg={'brand.700'}
-            href={'#'}
+            href={'/signup'}
           >
             Sign Up
           </Button>
@@ -289,3 +277,18 @@ const MobileNavItem = ({ label, children, href }) => {
 };
 
 
+export default function HomeLayout(props){
+
+  return (
+    <>
+    <Box>
+      <WithSubnavigation/>
+      {props.children}
+      <Footer/>
+       
+    </Box>
+    
+    </>
+  )
+
+}

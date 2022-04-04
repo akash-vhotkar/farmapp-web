@@ -38,16 +38,20 @@ import {
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
 import logo from  '../assets/images/logo.png'
+import SellerProducts  from '../view/DashboardProducts';
+import AddProducts from '../view/AddProduct';
+import Centers  from '../view/Centers';
+
 const LinkItems= [
-  { name: 'Dashboard', icon: FiHome },
-  { name: 'Reports', icon: FiTrendingUp },
-  { name: 'Tags', icon: FiTag },
-  { name: 'Users', icon: FiUsers },
-  { name: 'Settings', icon: FiSettings },
+  { name: 'Products', icon: FiTrendingUp, link:"/seller-products" ,children:<SellerProducts/> },
+  { name: 'Add Product', icon: FiTag , link :"/add-product", children :<AddProducts/>},
+  { name: 'Centers', icon: FiTag, link :"/centers" , children : <Centers/>}
+  
 ];
 
-export default function SidebarWithHeader() {
+export default function SidebarWithHeader(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  console.log("the props dashboard ", props)
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
       <SidebarContent
@@ -68,8 +72,13 @@ export default function SidebarWithHeader() {
       </Drawer>
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
-        <h1>thise is box </h1>
+      <Box ml={{ base: 0, md: 60 }}  p="4">
+        <Box bg={"white"} padding="20px">
+          {
+            props.children
+          }
+        </Box>
+        
       </Box>
     </Box>
   );
@@ -88,13 +97,13 @@ const SidebarContent = ({ onClose, ...rest }) => {
       pos="fixed"
       h="full"
       {...rest}>
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+      <Flex h="20" alignItems="center" mx="8"  justifyContent="space-between">
         <Image src={logo} width="150px" height={"50px"}>
         </Image>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} link={link.link} children={link.children}>
           {link.name}
         </NavItem>
       ))}
@@ -102,9 +111,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
   );
 };
 
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({ icon, link, children, ...rest }) => {
   return (
-    <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <Link href={link} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
         align="center"
         p="4"
@@ -162,12 +171,6 @@ const MobileNav = ({ onOpen, ...rest }) => {
       </Text>
 
       <HStack spacing={{ base: '0', md: '6' }}>
-        <IconButton
-          size="lg"
-          variant="ghost"
-          aria-label="open menu"
-          icon={<FiBell />}
-        />
         <Flex alignItems={'center'}>
           <Menu>
             <MenuButton
@@ -200,8 +203,6 @@ const MobileNav = ({ onOpen, ...rest }) => {
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}>
               <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuItem>Billing</MenuItem>
               <MenuDivider />
               <MenuItem>Sign out</MenuItem>
             </MenuList>

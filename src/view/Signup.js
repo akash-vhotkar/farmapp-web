@@ -14,7 +14,6 @@ import {
   } from '@chakra-ui/react';
 import React from 'react';
 import HomeLayout from '../layout/HomeLayout';
-  import Navbar  from  '../layout/HomeLayout';
 
   
   export default function SimpleCard() {
@@ -28,7 +27,7 @@ import HomeLayout from '../layout/HomeLayout';
         bg={useColorModeValue('text.100', 'text.100')}>
         <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
           <Stack align={'center'}>
-            <Heading fontSize={'4xl'}>Sign in to your account</Heading>
+            <Heading fontSize={'4xl'}>Sign Up to your account</Heading>
             <Text fontSize={'lg'} color={'gray.600'}>
               to enjoy all of our cool <Link color={'blue.400'}>features</Link> ✌️
             </Text>
@@ -43,22 +42,25 @@ import HomeLayout from '../layout/HomeLayout';
                 <FormLabel>Email address</FormLabel>
                 <Input type="email" />
               </FormControl>
+              <FormControl id="name">
+                <FormLabel>Name</FormLabel>
+                <Input type="text" />
+              </FormControl>
+              
               <FormControl id="password">
                 <FormLabel>Password</FormLabel>
                 <Input type="password" />
               </FormControl>
+              <FormControl id="confirm_password">
+                <FormLabel>Confirm Password</FormLabel>
+                <Input type="password" />
+              </FormControl>
+             
               <Stack spacing={10}>
-                <Stack
-                  direction={{ base: 'column', sm: 'row' }}
-                  align={'start'}
-                  justify={'space-between'}>
-                  <Checkbox>Remember me</Checkbox>
-                  <Link color={'blue.400'}>Forgot password?</Link>
-                </Stack>
                 <Button
                 variant={"solid"}
                   >
-                  Sign in
+                  Sign Up
                 </Button>
               </Stack>
             </Stack>
