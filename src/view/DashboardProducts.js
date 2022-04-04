@@ -25,10 +25,27 @@ import {
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
-import React from 'react';
+
+import axios from 'axios';
+import React,{useEffect} from 'react';
 import DashboardLayout from '../layout/DashboardLayout'
+const url="http://localhost:4000"
 
 export default function SimpleCard() {
+    const user_id=JSON.parse(localStorage.getItem('profile')).id;
+    
+    console.log(user_id);
+    useEffect(()=>{
+        axios.get(`${url}/api/v1/products`)
+          .then((res)=>{
+            console.log(res);
+            
+          })
+          .catch((err)=>{
+            // setErrcheck("no products ");
+          })
+    },[])
+
     return (
         <React.Fragment>
             <DashboardLayout>
