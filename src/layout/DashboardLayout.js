@@ -41,6 +41,9 @@ import logo from  '../assets/images/logo.png'
 import SellerProducts  from '../view/DashboardProducts';
 import AddProducts from '../view/AddProduct';
 import Centers  from '../view/Centers';
+import {useNavigate} from 'react-router-dom';
+import axios from 'axios'
+const url="http://localhost:4000"
 
 const LinkItems= [
   { name: 'Products', icon: FiTrendingUp, link:"/seller-products" ,children:<SellerProducts/> },
@@ -52,6 +55,9 @@ const LinkItems= [
 export default function SidebarWithHeader(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   console.log("the props dashboard ", props)
+  
+ 
+  
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
       <SidebarContent
@@ -143,6 +149,19 @@ const NavItem = ({ icon, link, children, ...rest }) => {
 };
 
 const MobileNav = ({ onOpen, ...rest }) => {
+
+  const navigate = useNavigate();
+
+  const handleClick=(()=>{
+    axios.get(`${url}/api/v1/logout`)
+    .then(()=>{
+      localStorage.removeItem('profile')
+      navigate('/signin')
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  })
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -204,7 +223,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
               borderColor={useColorModeValue('gray.200', 'gray.700')}>
               <MenuItem>Profile</MenuItem>
               <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              <MenuItem onClick={handleClick}> Sign out</MenuItem>
             </MenuList>
           </Menu>
         </Flex>

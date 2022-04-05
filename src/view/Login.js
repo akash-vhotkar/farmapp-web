@@ -16,7 +16,7 @@ import React,{useState} from 'react';
 import HomeLayout from '../layout/HomeLayout';
 import Navbar  from  '../layout/HomeLayout';
 import {useNavigate} from 'react-router-dom';
-  import axios from 'axios'
+import axios from 'axios'
 const url="http://localhost:4000"
 
   
@@ -51,6 +51,12 @@ const url="http://localhost:4000"
 
     const handleChange=(e)=>{
       setLogIndata({...logIndata,[e.target.name]:e.target.value})
+    }
+
+
+    const handlePassword=(e)=>{
+      console.log(e);
+      
     }
 
     return (
@@ -89,7 +95,7 @@ const url="http://localhost:4000"
                   align={'start'}
                   justify={'space-between'}>
                   <Checkbox>Remember me</Checkbox>
-                  <Link color={'blue.400'}>Forgot password?</Link>
+                  <Link href='/forget-password' color={'blue.400'}>Forgot password?</Link>
                 </Stack>
                 <Button onClick={handleSubmit}
                 variant={"solid"}

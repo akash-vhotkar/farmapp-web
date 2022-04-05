@@ -8,7 +8,7 @@ import DashboardProducts  from './view/DashboardProducts';
 import AddProduct  from './view/AddProduct';
 import Centers from './view/Centers';
 import CenterDetails from './view/CenterDetails';
-
+import ForgetPassword from './view/ForgetPassword';
 function App() {
   return (
     <Routes>
@@ -20,6 +20,7 @@ function App() {
       <Route path='/add-product' element={<AddProduct/>}></Route>
       <Route path='/centers' element={<Centers/>}></Route>
       <Route path='/center-details' element={<CenterDetails/>}></Route>
+      <Route path='/forget-password' element={<ForgetPassword/>}></Route>
     </Routes>
   );
 }
