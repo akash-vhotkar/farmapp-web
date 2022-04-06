@@ -17,17 +17,28 @@ import HomeLayout from '../layout/HomeLayout';
 import Navbar  from  '../layout/HomeLayout';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios'
+import { useToast } from '@chakra-ui/react'
 const url="http://localhost:4000"
 
+
+ 
   
   export default function SimpleCard() {
     const navigate = useNavigate();
     const [errcheck,setErrcheck]=useState('');
     const [logIndata,setLogIndata]=useState({email:'',password:''});
-    
+    const toast = useToast()
+
     const handleSubmit=((e)=>{
       if(!logIndata.email ||  !logIndata.password){
         setErrcheck("Kindly fill in all fields.")
+        toast({
+          title: 'Account created.',
+          description: "We've created your account for you.",
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        })
       }
       else{
         console.log(logIndata)
@@ -43,7 +54,7 @@ const url="http://localhost:4000"
             }
           })
           .catch((err)=>{
-            
+            // toast.error("Username or password incorrect")
             setErrcheck("Username or password incorrect");
           })
       }

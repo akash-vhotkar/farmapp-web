@@ -221,7 +221,10 @@ const MobileNav = ({ onOpen, ...rest }) => {
             <MenuList
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}>
-              <MenuItem>Profile</MenuItem>
+              <Link href={"/seller-profile"}>
+              <MenuItem>
+               Profile </MenuItem>
+               </Link>
               <MenuDivider />
               <MenuItem onClick={handleClick}> Sign out</MenuItem>
             </MenuList>

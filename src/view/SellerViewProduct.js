@@ -25,41 +25,45 @@ import {
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import DashboardLayout from '../layout/DashboardLayout'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
-import { FaImages } from 'react-icons/fa';
 const url="http://localhost:4000"
 
 export default function SimpleCard() {
     const [errcheck,setErrcheck]=useState(false);
     const navigate=useNavigate();
-    const [productData,setproductData]=useState({name:'',description:'',price:'',rating:'',images:[],category:'',stock:''});                                  
-
+    const [productData,setproductData]=useState({name:'',description:'',price:'',ratings:0,images:[],category:'',Stock:0});                                  
     
+
+    useEffect(()=>{
+        const id=window.location.search.substring(4);
+        console.log(id)
+        axios.get(`${url}/api/v1/product/${id}`)
+        .then((res)=>{
+            setproductData({...res.data.product})
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    },[])
+
     const handleSubmit=((e)=>{
     //   if(!productData.name ||  !productData.description || !productData.price ||  
-    //     !productData.rating || !productData.category ||  !productData.stock || !product.images.length>0){
+    //     !productData.rating || !productData.category ||  !productData.stock){
     //     setErrcheck("Kindly fill in all fields.")
     //   }
     //   else{
         console.log(productData)
-
-        axios.post(`${url}/api/v1/admin/product/new`,productData,{headers:{
+        const id=window.location.search.substring(4);
+        axios.put(`${url}/api/v1/admin/product/${id}`,productData,{headers:{
             cookies:JSON.parse(localStorage.getItem('profile')).token
         }})
           .then((res)=>{
-            console.log(res);
-            if(res.data.user.role==="user"){
-              navigate('/home')
-            }
-            else{
-              navigate('/')
-            }
+            navigate('/seller-products')
           })
           .catch((err)=>{
-            
             setErrcheck("Username or password incorrect");
           })
     //   }
@@ -69,7 +73,7 @@ export default function SimpleCard() {
         setproductData({...productData,[e.target.name]:e.target.value})
     }
 
-    const encode=(e)=>{
+    const encode=(e,i)=>{
        
         const file=e.target.files[0];
        
@@ -80,62 +84,63 @@ export default function SimpleCard() {
             var fileReader = new FileReader();
             fileReader.onload = function(fileLoadedEvent) {
                 const srcData = fileLoadedEvent.target.result;
-                productData.images.push(srcData)
+                productData.images[i]=srcData
                 setproductData(productData)
+                console.log(productData)
             }
             fileReader.readAsDataURL(file);
         } 
     }
-
+    
     return (
         <React.Fragment>
             <DashboardLayout>
                 <Box>
                     <Box>
-                        <Text fontSize={"1.5rem"} fontWeight="bold" padding={"20px"} textAlign={"center"}>Add Product  </Text>
+                        <Text fontSize={"1.5rem"} fontWeight="bold" padding={"20px"} textAlign={"center"}>Product Details </Text>
                     </Box>
                     <p>{errcheck}</p>
                     <Stack spacing={4}>
                         <FormControl id="email">
                             <FormLabel>Product Name </FormLabel>
-                            <Input onChange={handleChange} name="name" type="text" />
+                            <Input value={productData.name} onChange={handleChange} name="name" type="text" />
                         </FormControl>
                         <FormControl id="description">
                             <FormLabel>Product Description</FormLabel>
-                            <Input onChange={handleChange} name="description" type="text" />
+                            <Input value={productData.description} onChange={handleChange} name="description" type="text" />
 
                         </FormControl>
                         <FormControl id="price">
                             <FormLabel>Price</FormLabel>
-                            <Input onChange={handleChange} name="price" type="number" />    
+                            <Input value={productData.price} onChange={handleChange} name="price" type="number" />    
                         </FormControl>
                         <FormControl id="rating">
                             <FormLabel>Rating</FormLabel>
-                            <Input onChange={handleChange} name="rating" type="number" />    
+                            <Input value={productData.ratings} onChange={handleChange} name="ratings" type="number" />    
                         </FormControl>
                         <FormControl id="img">
                             <FormLabel>Add Image</FormLabel>
-                            <input onChange={(e)=>encode(e)} name="image1" type="file" /> 
+                            <input onChange={(e)=>encode(e,0)} name="image1" type="file" /> 
                             {productData.image!=='' && <img alt=" "src={productData.image}></img>}
                         </FormControl>
                         <FormControl id="img">
                             <FormLabel>Add Image</FormLabel>
-                            <input onChange={(e)=>encode(e)} name="image2" type="file" /> 
+                            <input onChange={(e)=>encode(e,1)} name="image2" type="file" /> 
                             {productData.image!=='' && <img alt=" "src={productData.image}></img>}
                         </FormControl>
                         <FormControl id="category">
                             <FormLabel>Category</FormLabel>
-                            <Input onChange={handleChange} name="category" type="text" />    
+                            <Input value={productData.category} onChange={handleChange} name="category" type="text" />    
                         </FormControl>
                         <FormControl id="stock">
                             <FormLabel>Stock</FormLabel>
-                            <Input onChange={handleChange} name="stock" type="number" />    
+                            <Input value={productData.Stock} onChange={handleChange} name="Stock" type="number" />    
                         </FormControl>
                         <Stack spacing={10}>
                             <Button onClick={handleSubmit}
                                 variant={"solid"}
                             >
-                                Add
+                                update  Product 
                             </Button>
                         </Stack>
                     </Stack>

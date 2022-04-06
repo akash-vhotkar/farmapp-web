@@ -22,8 +22,7 @@ import Navbar from '../layout/HomeLayout';
 
 
 export default function SimpleCard() {
-    const user=localStorage.getItem('profile');
-    console.log(user);
+ 
     return (
         <React.Fragment>
             <HomeLayout>
@@ -31,7 +30,7 @@ export default function SimpleCard() {
                     minH={'100vh'}
 
                     bg={useColorModeValue('text.100', 'text.100')}>
-                    <p>drv</p>
+                   
                     <Flex minH={'30vh'}
                         align={'center'}
                         justify={'center'}

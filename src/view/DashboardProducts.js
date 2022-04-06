@@ -9,9 +9,10 @@ import {
     Table,
     TableContainer,
     Tr,
+    IconButton,
     Td,
     Th,
-    Thead,Tbody,
+    Thead, Tbody,
     TableCaption,
     Tfoot,
 
@@ -19,32 +20,51 @@ import {
     SkeletonCircle,
     SkeletonText,
     Stack,
-    Link,
     Button,
     Heading,
+    Tooltip,
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
-
+import { DeleteIcon, InfoIcon } from '@chakra-ui/icons';
 import axios from 'axios';
-import React,{useEffect} from 'react';
+import {Link, Navigate, useNavigate} from  'react-router-dom';
+
+import React, {useState, useEffect } from 'react';
 import DashboardLayout from '../layout/DashboardLayout'
-const url="http://localhost:4000"
+const url = "http://localhost:4000"
 
 export default function SimpleCard() {
-    const user_id=JSON.parse(localStorage.getItem('profile')).id;
-    
-    console.log(user_id);
+    // const user_id=JSON.parse(localStorage.getItem('profile')).id;
+
+    // console.log(user_id);
+    const navigate=useNavigate()
+    const [products,setProducts]=useState([]);
     useEffect(()=>{
         axios.get(`${url}/api/v1/products`)
           .then((res)=>{
             console.log(res);
-            
+            setProducts(res.data.products);
           })
           .catch((err)=>{
             // setErrcheck("no products ");
           })
     },[])
+
+    const handleDelete=((item)=>{
+        console.log(JSON.parse(localStorage.getItem('profile')).token)
+        axios.put(`${url}/api/v1/seller/product/${item._id}`,item,{headers:{
+            cookies:JSON.parse(localStorage.getItem('profile')).token
+        }})
+          .then((res)=>{
+              console.log("YES");
+              navigate('/seller-products')
+          })
+          .catch((err)=>{
+            // setErrcheck("no products ");
+            console.log(err)
+          })
+    })
 
     return (
         <React.Fragment>
@@ -58,38 +78,52 @@ export default function SimpleCard() {
                             <Thead>
                                 <Tr>
                                     <Th>Product  Name</Th>
-                                    <Th>Amount </Th>
-                                    <Th> Desc </Th>
+                                    <Th>Description</Th>
+                                    <Th>Price </Th>
+                                    <Th>Category</Th>
+                                    <Th>Stock </Th>
+                                    <Th>Ratings </Th>
+                                    <Th> Details or Update </Th>
+                                    <Th>Delete  </Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
-                                <Tr>
-                                    <Td>inches</Td>
-                                    <Td>millimetres (mm)</Td>
-                                    <Td isNumeric>25.4</Td>
-                                </Tr>
-                                <Tr>
-                                    <Td>feet</Td>
-                                    <Td>centimetres (cm)</Td>
-                                    <Td isNumeric>30.48</Td>
-                                </Tr>
-                                <Tr>
-                                    <Td>yards</Td>
-                                    <Td>metres (m)</Td>
-                                    <Td isNumeric>0.91444</Td>
-                                </Tr>
+                                {
+                                    products.map(item => (
+                                        <Tr key={item._id}  >
+                                            <Td>{item.name}</Td>
+                                            <Td>{item.description}</Td>
+                                            <Td>{item.category}</Td>
+                                            <Td> {item.Stock}</Td>
+                                            <Td>{item.ratings}</Td>
+                                            <Td isNumeric>{item.price}</Td>
+                                            <Td>
+                                                <Link to={`/seller-product-detail?id=${item._id}`}>
+                                                    <Tooltip label='Product Details' fontSize='md'>
+                                                        <InfoIcon />
+                                                    </Tooltip>
+                                                </Link>
+                                            </Td>
+                                            <Td>
+                                            <Button onClick={()=>handleDelete(item)} >
+                                                <Tooltip label='Delete Product ' fontSize='md'>
+                                                    <DeleteIcon />
+                                                </Tooltip>
+                                                </Button>
+                                            </Td>
+
+                                        </Tr>
+
+
+                                    ))
+                                }
+
                             </Tbody>
-                            <Tfoot>
-                                <Tr>
-                                    <Th>To convert</Th>
-                                    <Th>into</Th>
-                                    <Th isNumeric>multiply by</Th>
-                                </Tr>
-                            </Tfoot>
+
                         </Table>
                     </TableContainer>
                 </Box>
-               
+
             </DashboardLayout>
         </React.Fragment>
     );
