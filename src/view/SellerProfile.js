@@ -11,6 +11,9 @@ import {
     Tr,
     Td,
     Th,
+    Wrap,
+    WrapItem,
+    Avatar,
     Thead, Tbody,
     TableCaption,
     Tfoot,
@@ -24,49 +27,52 @@ import {
     Heading,
     Text,
     useColorModeValue,
+    Center,
 } from '@chakra-ui/react';
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import DashboardLayout from '../layout/DashboardLayout'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-const url="http://localhost:4000"
+const url = "http://localhost:4000"
 
 export default function SimpleCard() {
-    const [errcheck,setErrcheck]=useState(false);
-    const navigate=useNavigate();
-    const [profileData,setprofileData]=useState({name:'',email:''});                                  
+    const [errcheck, setErrcheck] = useState(false);
+    const navigate = useNavigate();
+    const [profileData, setprofileData] = useState({ name: '', email: '' });
 
-    
-    const handleUpdate=((e)=>{
-    //   if(!profileData.name || !profileData.email){
-    //     setErrcheck("Kindly fill in all fields.")
-    //   }
-    //   else{
+
+    const handleUpdate = ((e) => {
+        //   if(!profileData.name || !profileData.email){
+        //     setErrcheck("Kindly fill in all fields.")
+        //   }
+        //   else{
         console.log(profileData)
 
-        axios.put(`${url}/api/v1/me/update`,profileData,{headers:{
-            cookies:JSON.parse(localStorage.getItem('profile')).token
-        }})
-          .then((res)=>{
-            console.log(res);
-            navigate('/')
-          })
-          .catch((err)=>{
-            console.log("ERR")
-          })
-    //   }
+        axios.put(`${url}/api/v1/me/update`, profileData, {
+            headers: {
+                cookies: JSON.parse(localStorage.getItem('profile')).token
+            }
+        })
+            .then((res) => {
+                console.log(res);
+                navigate('/')
+            })
+            .catch((err) => {
+                console.log("ERR")
+            })
+        //   }
     })
 
-    const handleReset=(()=>{
+    const handleReset = (() => {
         console.log("IN")
-            navigate('/update-password') // after login
+        navigate('/update-password') // after login
     })
 
-    const handleChange=(e)=>{
-        setprofileData({...profileData,[e.target.name]:e.target.value})
+    const handleChange = (e) => {
+        setprofileData({ ...profileData, [e.target.name]: e.target.value })
     }
 
-    
+
 
     return (
         <React.Fragment>
@@ -75,6 +81,10 @@ export default function SimpleCard() {
                     <Box>
                         <Text fontSize={"1.5rem"} fontWeight="bold" padding={"20px"} textAlign={"center"}>Profile  </Text>
                     </Box>
+                    <center style={{display:"flex" , alignItems:"center"}}>
+                                <Avatar size='2xl' name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />{' '}
+                        
+                    </center>
                     <p>{errcheck}</p>
                     <Stack spacing={4}>
                         <FormControl id="email">
@@ -90,16 +100,16 @@ export default function SimpleCard() {
                             <Button onClick={handleUpdate}
                                 variant={"solid"}
                             >
-                            Update Profile
+                                Update Profile
                             </Button>
                         </Stack>
                         <Stack spacing={10}>
-                            <Link  > 
-                            <Button style={{width:"100%"}} onClick={handleReset}
-                                variant={"solid"}
-                            >
-                                 Reset Password 
-                            </Button>
+                            <Link  >
+                                <Button style={{ width: "100%" }} onClick={handleReset}
+                                    variant={"solid"}
+                                >
+                                    Reset Password
+                                </Button>
                             </Link>
                         </Stack>
                     </Stack>

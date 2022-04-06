@@ -40,9 +40,9 @@ export default function SimpleCard() {
                         <Table variant='simple'>
                             <Thead>
                                 <Tr>
-                                    <Th>Product  Name</Th>
-                                    <Th>Amount </Th>
-                                    <Th> Desc </Th>
+                                    <Th>Name</Th>
+                                    <Th>Address </Th>
+                                    <Th> Location  </Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
@@ -62,13 +62,6 @@ export default function SimpleCard() {
                                     <Td isNumeric>0.91444</Td>
                                 </Tr>
                             </Tbody>
-                            <Tfoot>
-                                <Tr>
-                                    <Th>To convert</Th>
-                                    <Th>into</Th>
-                                    <Th isNumeric>multiply by</Th>
-                                </Tr>
-                            </Tfoot>
                         </Table>
                     </TableContainer>
                 </Box>
