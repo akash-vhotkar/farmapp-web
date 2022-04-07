@@ -113,10 +113,11 @@ export default function SimpleCard() {
                                         <Tr key={item._id}  >
                                             <Td>{item.name}</Td>
                                             <Td>{item.description}</Td>
+                                            <Td isNumeric>{item.price}</Td>
+                          
                                             <Td>{item.category}</Td>
                                             <Td> {item.Stock}</Td>
                                             <Td>{item.ratings}</Td>
-                                            <Td isNumeric>{item.price}</Td>
                                             <Td>
                                                 <Link to={`/seller-product-detail?id=${item._id}`}>
                                                     <Tooltip label='Product Details' fontSize='md'>

@@ -14,12 +14,12 @@ import {
     Thead,Tbody,
     TableCaption,
     Tfoot,
+    Link,
 
     GridItem,
     SkeletonCircle,
     SkeletonText,
     Stack,
-    Link,
     Button,
     Heading,
     Text,
@@ -27,6 +27,7 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import DashboardLayout from '../layout/DashboardLayout'
+import {ExternalLinkIcon} from '@chakra-ui/icons';
 
 export default function SimpleCard() {
     return (
@@ -47,20 +48,24 @@ export default function SimpleCard() {
                             </Thead>
                             <Tbody>
                                 <Tr>
-                                    <Td>inches</Td>
-                                    <Td>millimetres (mm)</Td>
-                                    <Td isNumeric>25.4</Td>
+                                    <Td>Summit enterprice </Td>
+                                    <Td>chembur </Td>
+                                    <Td><Link isExternal href='https://goo.gl/maps/MMNbnnYA2orvpf897'> <ExternalLinkIcon style={{color :"blue"}}/> </Link></Td>
+                                    
                                 </Tr>
                                 <Tr>
-                                    <Td>feet</Td>
-                                    <Td>centimetres (cm)</Td>
-                                    <Td isNumeric>30.48</Td>
+                                    <Td>d enterprice </Td>
+                                    <Td>Nashik </Td>
+                                    <Td><Link isExternal href=' https://goo.gl/maps/7T27UHfmh3NfEafN8'> <ExternalLinkIcon style={{color :"blue"}}/> </Link></Td>
+                                    
                                 </Tr>
                                 <Tr>
-                                    <Td>yards</Td>
-                                    <Td>metres (m)</Td>
-                                    <Td isNumeric>0.91444</Td>
+                                    <Td>m enterprice </Td>
+                                    <Td>Solapur</Td>
+                                    <Td><Link  isExternal href='https://goo.gl/maps/BjD9Asp5k6nDWkCM6'> <ExternalLinkIcon style={{color :"blue"}}/> </Link></Td>
+                                    
                                 </Tr>
+                                
                             </Tbody>
                         </Table>
                     </TableContainer>
