@@ -28,13 +28,15 @@ import {
 import React,{useEffect, useState} from 'react';
 import DashboardLayout from '../layout/DashboardLayout'
 import {useNavigate} from 'react-router-dom'
+import { useToast } from '@chakra-ui/react'
 import axios from 'axios'
 const url="http://localhost:4000"
 
+
 export default function SimpleCard() {
-    const [errcheck,setErrcheck]=useState(false);
+    const toast=useToast();
     const navigate=useNavigate();
-    const [productData,setproductData]=useState({name:'',description:'',price:'',ratings:0,images:[],category:'',Stock:0});                                  
+    const [productData,setproductData]=useState({name:'',description:'',price:'',ratings:'',images:[],category:'',Stock:0});                                  
     
 
     useEffect(()=>{
@@ -45,16 +47,27 @@ export default function SimpleCard() {
             setproductData({...res.data.product})
         })
         .catch((err)=>{
-            console.log(err)
+            toast({
+                title: 'Server side error',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+              })
         })
     },[])
 
     const handleSubmit=((e)=>{
-    //   if(!productData.name ||  !productData.description || !productData.price ||  
-    //     !productData.rating || !productData.category ||  !productData.stock){
-    //     setErrcheck("Kindly fill in all fields.")
-    //   }
-    //   else{
+        console.log(productData)
+      if(!productData.name ||  !productData.description || !productData.price ||  
+        productData.ratings==='' || !productData.category ||  !productData.Stock){
+            toast({
+                title: 'Kindly fill sin all fields',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+              })
+      }
+      else{
         console.log(productData)
         const id=window.location.search.substring(4);
         axios.put(`${url}/api/v1/admin/product/${id}`,productData,{headers:{
@@ -64,9 +77,14 @@ export default function SimpleCard() {
             navigate('/seller-products')
           })
           .catch((err)=>{
-            setErrcheck("Username or password incorrect");
+            toast({
+                title: 'Server side error',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+              })
           })
-    //   }
+      }
     })
 
     const handleChange=(e)=>{
@@ -78,7 +96,12 @@ export default function SimpleCard() {
         const file=e.target.files[0];
        
         if(100<file.size/1024){
-            setErrcheck('The file size cannot exceed 200kb')
+            toast({
+                title: 'File size cannot exceed more than 100kb',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+              })
         }
         else{
             var fileReader = new FileReader();
@@ -99,7 +122,6 @@ export default function SimpleCard() {
                     <Box>
                         <Text fontSize={"1.5rem"} fontWeight="bold" padding={"20px"} textAlign={"center"}>Product Details </Text>
                     </Box>
-                    <p>{errcheck}</p>
                     <Stack spacing={4}>
                         <FormControl id="email">
                             <FormLabel>Product Name </FormLabel>
@@ -121,12 +143,12 @@ export default function SimpleCard() {
                         <FormControl id="img">
                             <FormLabel>Add Image</FormLabel>
                             <input onChange={(e)=>encode(e,0)} name="image1" type="file" /> 
-                            {productData.image!=='' && <img alt=" "src={productData.image}></img>}
+                            {productData.images[0]!=='' && <img alt=" "src={productData.images[0]}></img>}
                         </FormControl>
                         <FormControl id="img">
                             <FormLabel>Add Image</FormLabel>
                             <input onChange={(e)=>encode(e,1)} name="image2" type="file" /> 
-                            {productData.image!=='' && <img alt=" "src={productData.image}></img>}
+                            {productData.images[1]!=='' && <img alt=" "src={productData.images[1]}></img>}
                         </FormControl>
                         <FormControl id="category">
                             <FormLabel>Category</FormLabel>

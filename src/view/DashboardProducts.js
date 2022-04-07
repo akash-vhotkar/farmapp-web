@@ -29,7 +29,7 @@ import {
 import { DeleteIcon, InfoIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 import {Link, Navigate, useNavigate} from  'react-router-dom';
-
+import { useToast } from '@chakra-ui/react'
 import React, {useState, useEffect } from 'react';
 import DashboardLayout from '../layout/DashboardLayout'
 const url = "http://localhost:4000"
@@ -39,6 +39,7 @@ export default function SimpleCard() {
 
     // console.log(user_id);
     const navigate=useNavigate()
+    const toast=useToast();
     const [products,setProducts]=useState([]);
     useEffect(()=>{
         axios.get(`${url}/api/v1/products`)
@@ -47,7 +48,13 @@ export default function SimpleCard() {
             setProducts(res.data.products);
           })
           .catch((err)=>{
-            // setErrcheck("no products ");
+            toast({
+                title: 'Server side error.',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+            })
+
           })
     },[])
 
@@ -57,12 +64,25 @@ export default function SimpleCard() {
             cookies:JSON.parse(localStorage.getItem('profile')).token
         }})
           .then((res)=>{
-              console.log("YES");
-              navigate('/seller-products')
+            toast({
+                title: 'Product Deleted',
+                status: 'success',
+                duration: 9000,
+                isClosable: true,
+            })
+            setProducts(products.filter((product)=>{
+                if(product._id!==item._id){
+                    return product
+                }
+            }))     
           })
           .catch((err)=>{
-            // setErrcheck("no products ");
-            console.log(err)
+            toast({
+                title: 'Server side error.',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+            })
           })
     })
 

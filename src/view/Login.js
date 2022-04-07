@@ -25,17 +25,15 @@ const url="http://localhost:4000"
   
   export default function SimpleCard() {
     const navigate = useNavigate();
-    const [errcheck,setErrcheck]=useState('');
     const [logIndata,setLogIndata]=useState({email:'',password:''});
     const toast = useToast()
 
     const handleSubmit=((e)=>{
       if(!logIndata.email ||  !logIndata.password){
-        setErrcheck("Kindly fill in all fields.")
+       
         toast({
-          title: 'Account created.',
-          description: "We've created your account for you.",
-          status: 'success',
+          title: 'Kindly fill in all fields.',
+          status: 'error',
           duration: 9000,
           isClosable: true,
         })
@@ -47,15 +45,19 @@ const url="http://localhost:4000"
             console.log(res);
             localStorage.setItem('profile',JSON.stringify({token:res?.data.token,id:res.data.user._id}))
             if(res.data.user.role==="user"){
-              navigate('/home')
+              navigate('/')
             }
             else{
               navigate('/')
             }
           })
           .catch((err)=>{
-            // toast.error("Username or password incorrect")
-            setErrcheck("Username or password incorrect");
+            toast({
+              title: 'Username or password incorrect',
+              status: 'error',
+              duration: 9000,
+              isClosable: true,
+            })
           })
       }
     })
@@ -90,7 +92,6 @@ const url="http://localhost:4000"
             bg={useColorModeValue('white', 'white')}
             boxShadow={'lg'}
             p={8}>
-              <p>{errcheck}</p>
             <Stack spacing={4}>
               <FormControl id="email">
                 <FormLabel>Email address</FormLabel>

@@ -25,6 +25,7 @@ const url="http://localhost:4000"
   
   export default function SimpleCard() {
     const [email,setEmail]=useState();
+    const toast=useToast()
     const url="http://localhost:4000"
     const handleChange=(e)=>{
         setEmail(e.target.value)
@@ -36,9 +37,21 @@ const url="http://localhost:4000"
         axios.post(`${url}/api/v1/password/forgot`,{email:email})
         .then((res)=>{
             console.log(res)
+            toast({
+              title: 'Email Sent!',
+              status: 'success',
+              duration: 9000,
+              isClosable: true,
+            })
         })
         .catch((err)=>{
             console.log(err)
+            toast({
+              title: 'Invalid Email address',
+              status: 'error',
+              duration: 9000,
+              isClosable: true,
+            })
         })
     }
     return (
