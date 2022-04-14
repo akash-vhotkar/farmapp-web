@@ -16,6 +16,7 @@ import {
     Thead, Tbody,
     TableCaption,
     Tfoot,
+    Avatar,
 
     GridItem,
     SkeletonCircle,
@@ -32,7 +33,9 @@ import axios from 'axios';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react'
 import React, { useState, useEffect } from 'react';
-import DashboardLayout from '../layout/HomeLayout'
+import DashboardLayout from '../layout/HomeLayout';
+import AddressDetails from '../componant/AddressDetails';
+
 const url = "http://localhost:4000"
 
 export default function SimpleCard() {
@@ -41,6 +44,7 @@ export default function SimpleCard() {
     const [numberofItems,setNumberofItems]=useState();
     const navigate = useNavigate()
     const toast = useToast();
+    const [showaddresspage , setshowaddresspage ] = useState(false);
     const [products, setProducts] = useState([]);
     useEffect(() => {
         if(localStorage.getItem("cart")==null){
@@ -118,7 +122,7 @@ export default function SimpleCard() {
                                 {
                                     products.map(item => (
                                         <Tr key={item._id}  >
-                                            <Td>{item.image}</Td>
+                                            <Td> <Avatar name='Product image' src={item.image} /></Td>
                                             <Td>{item.name}</Td>
                                             <Td><input onChange={(e)=>handleChange(item,e)} type="number"></input></Td>
                                             <Td>{item.quantity}</Td>
@@ -156,11 +160,17 @@ export default function SimpleCard() {
                             fontWeight={600}
                             color={'white'}
                             bg={'brand.700'}
+                            onClick= {()=> setshowaddresspage(!showaddresspage)}
                             // href={'/signup'}
                         >
                             Place order
                         </Button>
 
+                    </Box>
+                    <Box>
+                        {
+                            showaddresspage ? <AddressDetails/>:null
+                        }
                     </Box>
 
                 </Box>
