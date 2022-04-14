@@ -156,9 +156,12 @@ const MobileNav = ({ onOpen, ...rest }) => {
   const navigate = useNavigate();
 
   const handleClick=(()=>{
+    console.log("IN")
     axios.get(`${url}/api/v1/logout`)
     .then(()=>{
       localStorage.removeItem('profile')
+      localStorage.removeItem("cart")
+      console.log("IN")
       navigate('/signin')
     })
     .catch((err)=>{

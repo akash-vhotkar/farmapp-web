@@ -18,6 +18,7 @@ import {
     Heading,
     Text,
     useColorModeValue,
+    useToast,
 } from '@chakra-ui/react';
 import React from 'react';
 import HomeLayout from '../layout/HomeLayout';
@@ -32,6 +33,8 @@ const url = "http://localhost:4000"
 
 export default function SimpleCard() {
     const navigate = useNavigate()
+    const toast=useToast()
+    const [cart,setCart]=useState([]);
     const [products, setProducts] = useState([]);
     useEffect(() => {
         axios.get(`${url}/api/v1/products`)
@@ -43,6 +46,30 @@ export default function SimpleCard() {
                 // setErrcheck("no products ");
             })
     }, [])
+
+
+    const handleSubmit=(item)=>{
+        if(localStorage.getItem("profile")===null){
+            toast({
+                title: 'Kindly login',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+            })
+        }
+        else{
+            // cart=JSON.parse(localStorage.getItem("cart"));
+            cart.push(item);
+            setCart(cart)
+            localStorage.setItem("cart",JSON.stringify(cart))
+            toast({
+                title: 'Product added to Cart',
+                status: 'success',
+                duration: 9000,
+                isClosable: true,
+            })
+        }
+    }
 
     return (
         <React.Fragment>
@@ -111,11 +138,13 @@ export default function SimpleCard() {
                                                 </Box>
                                             </Box>
                                             <Button
+                                                onClick={()=>handleSubmit(item)}
                                                 as={'a'}
                                                 fontSize={'sm'}
                                                 fontWeight={400}
                                                 variant={'link'}
-                                                href={'/signin'}>
+                                                // href={'/signin'}
+                                                >
                                                 Add to cart
                                             </Button>
 

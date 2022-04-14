@@ -36,57 +36,62 @@ import DashboardLayout from '../layout/HomeLayout'
 const url = "http://localhost:4000"
 
 export default function SimpleCard() {
-    // const user_id=JSON.parse(localStorage.getItem('profile')).id;
-
-    // console.log(user_id);
+    const [cost,setCost]=useState();
+    const [quantity,setQuantity]=useState();
+    const [numberofItems,setNumberofItems]=useState();
     const navigate = useNavigate()
     const toast = useToast();
     const [products, setProducts] = useState([]);
     useEffect(() => {
-        axios.get(`${url}/api/v1/products`)
-            .then((res) => {
-                console.log(res);
-                setProducts(res.data.products);
+        if(localStorage.getItem("cart")==null){
+            const cart=[];
+            setProducts(cart)
+            setNumberofItems(cart.length);
+            setCost(calc(cart))
+        }
+        else{
+            const cart=JSON.parse(localStorage.getItem("cart"));
+            cart.forEach((item)=>{
+                item.quantity=1;
             })
-            .catch((err) => {
-                toast({
-                    title: 'Server side error.',
-                    status: 'error',
-                    duration: 9000,
-                    isClosable: true,
-                })
-
-            })
+            setProducts(cart)
+            setNumberofItems(cart.length);
+            setCost(calc(cart))
+        }
     }, [])
 
-    const handleDelete = ((item) => {
-        console.log(JSON.parse(localStorage.getItem('profile')).token)
-        axios.put(`${url}/api/v1/seller/product/${item._id}`, item, {
-            headers: {
-                cookies: JSON.parse(localStorage.getItem('profile')).token
+    const calc=((cart)=>{
+        var sum=0;
+        cart.forEach((i)=>{
+            sum=sum+i.price*i.quantity;
+        })
+        return sum;
+    })
+
+    const handleChange=(i,e)=>{
+        products.forEach((item)=>{
+            if(item._id===i._id){
+                item.quantity=e.target.value;
             }
         })
-            .then((res) => {
-                toast({
-                    title: 'Product Deleted',
-                    status: 'success',
-                    duration: 9000,
-                    isClosable: true,
-                })
-                setProducts(products.filter((product) => {
-                    if (product._id !== item._id) {
-                        return product
-                    }
-                }))
-            })
-            .catch((err) => {
-                toast({
-                    title: 'Server side error.',
-                    status: 'error',
-                    duration: 9000,
-                    isClosable: true,
-                })
-            })
+        setProducts(products)
+        setCost(calc(products))
+    }
+
+    const handleDelete = ((i) => {
+        const newproducts=products.filter((item)=>{
+            return item._id!==i._id
+        })
+        localStorage.setItem("cart",JSON.stringify(newproducts))
+        setProducts(newproducts)
+        setNumberofItems(newproducts.length);
+        setCost(calc(newproducts))
+        toast({
+            title: 'Product removed',
+            status: 'success',
+            duration: 9000,
+            isClosable: true,
+        })
     })
 
     return (
@@ -103,6 +108,7 @@ export default function SimpleCard() {
                                     <Th>Product  Image</Th>
                                     <Th>Product name </Th>
                                     <Th>Quantity </Th>
+                                    <Th>Quantity </Th>
                                     <Th>Price </Th>
                                     <Th>Actions</Th>
 
@@ -114,7 +120,8 @@ export default function SimpleCard() {
                                         <Tr key={item._id}  >
                                             <Td>{item.image}</Td>
                                             <Td>{item.name}</Td>
-                                            <Td>{item.quntity}</Td>
+                                            <Td><input onChange={(e)=>handleChange(item,e)} type="number"></input></Td>
+                                            <Td>{item.quantity}</Td>
                                             <Td isNumeric>{item.price}</Td>
                                             <Td>
                                                 <Button onClick={() => handleDelete(item)} >
@@ -123,7 +130,6 @@ export default function SimpleCard() {
                                                     </Tooltip>
                                                 </Button>
                                             </Td>
-
                                         </Tr>
 
 
@@ -133,8 +139,8 @@ export default function SimpleCard() {
                             </Tbody>
                             <Tfoot>
                                 <Tr>
-                                    <Th>No of items </Th>
-                                    <Th>Total Ampunt</Th>
+                                    <Th>No of items = {numberofItems}</Th>
+                                    <Th>Total Amount= {cost}</Th>
                                     <Th isNumeric></Th>
                                 </Tr>
                             </Tfoot>
@@ -150,9 +156,9 @@ export default function SimpleCard() {
                             fontWeight={600}
                             color={'white'}
                             bg={'brand.700'}
-                            href={'/signup'}
+                            // href={'/signup'}
                         >
-                            Make Payment
+                            Place order
                         </Button>
 
                     </Box>
