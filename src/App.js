@@ -3,7 +3,9 @@ import PrivateRoute from './config/PrivateRoute';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Dashboard from './view/Dashboard';
 import Signup from './view/Signup';
+
 import Product from './view/Products';
+import DashboardOrders from './view/DashboardOrders';
 import DashboardProducts  from './view/DashboardProducts';
 import AddProduct  from './view/AddProduct';
 import Centers from './view/Centers';
@@ -14,7 +16,8 @@ import SellerProfile from './view/SellerProfile';
 import SellerResetPassword from './view/SellerResetPassowrd';
 import SellerViewProduct  from './view/SellerViewProduct';
 import UpdatePassword from './view/UpdatePassword';
-
+import Cart from './view/Cart';
+import Orders from './view/Orders';
 
 function App() {
   return (
@@ -36,6 +39,9 @@ function App() {
       <Route path='/forget-password' element={<ForgetPassword/>}></Route>
       <Route path='/reset-password/' element={<SellerResetPassword/>}></Route> // before login forgetpassword
       <Route path='/update-password/' element={<UpdatePassword/>}></Route>  // after login
+      <Route path='/seller-orders' element ={<DashboardOrders/>}/>
+      <Route path='/cart' element ={<Cart/>}/>      
+      <Route path='/orders' element ={<Orders/>}/>
     </Routes>
     </>
   );

@@ -15,6 +15,7 @@ import {
   DrawerContent,
   Text,
   useDisclosure,
+  Select,
   BoxProps,
   FlexProps,
   Menu,
@@ -41,6 +42,7 @@ import logo from  '../assets/images/logo.png'
 import SellerProducts  from '../view/DashboardProducts';
 import AddProducts from '../view/AddProduct';
 import Centers  from '../view/Centers';
+import DashboardOrder from '../view/DashboardOrders';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios'
 const url="http://localhost:4000"
@@ -48,6 +50,7 @@ const url="http://localhost:4000"
 const LinkItems= [
   { name: 'Products', icon: FiTrendingUp, link:"/seller-products" ,children:<SellerProducts/> },
   { name: 'Add Product', icon: FiTag , link :"/add-product", children :<AddProducts/>},
+  { name: 'Orders', icon: FiTag, link :"/seller-orders" , children : <DashboardOrder/>},
   { name: 'Centers', icon: FiTag, link :"/centers" , children : <Centers/>}
   
 ];

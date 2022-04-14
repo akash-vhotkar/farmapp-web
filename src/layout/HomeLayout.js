@@ -109,6 +109,14 @@ const NAV_ITEMS = [
             href={'/products'}>
             Products
           </Button>
+          <Button
+            as={'a'}
+            fontSize={'sm'}
+            fontWeight={400}
+            variant={'link'}
+            href={'/cart'}>
+            Cart
+          </Button>
           <Flex alignItems={'center'}>
             <Menu>
               <MenuButton
