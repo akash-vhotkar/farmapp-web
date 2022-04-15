@@ -48,7 +48,7 @@ const url="http://localhost:4000"
               navigate('/')
             }
             else{
-              navigate('/')
+              navigate('/seller-products')
             }
           })
           .catch((err)=>{

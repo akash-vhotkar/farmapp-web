@@ -7,31 +7,49 @@ import {
 
 } from '@chakra-ui/react';
 
+import React, { useState, useEffect } from 'react';
 
-const AddressDetails = () => {
+const AddressDetails = ({shippingInfo,setShippingInfo}) => {
+   
+    
+
+
+    const handleChange=(e)=>{
+        setShippingInfo({...shippingInfo,[e.target.id]:e.target.value})
+        console.log(shippingInfo)
+    }
+
+    const handleSubmit=()=>{
+        console.log(shippingInfo)
+    }
     return (
         <>
             <div>
                     <FormControl>
-                        <FormLabel htmlFor='email'>Enter your address</FormLabel>
-                        <Input id='email' type='text' />
+                        <FormLabel htmlFor='address'>Enter your address</FormLabel>
+                        <Input onChange={handleChange} id='address' type='text' />
                     </FormControl>
                     <FormControl>
-                        <FormLabel htmlFor='email'>Enter your state</FormLabel>
-                        <Input id='email' type='text' />
+                        <FormLabel htmlFor='state'>Enter your state</FormLabel>
+                        <Input onChange={handleChange} id='state' type='text' />
                     </FormControl>   <FormControl>
-                        <FormLabel htmlFor='email'>Enter your city</FormLabel>
-                        <Input id='email' type='text' />
+                        <FormLabel htmlFor='city'>Enter your city</FormLabel>
+                        <Input id='city' type='text' onChange={handleChange}/>
                     </FormControl>   <FormControl>
-                        <FormLabel htmlFor='email'>Enter your country</FormLabel>
-                        <Input id='email' type='text' />
+                        <FormLabel htmlFor='country'>Enter your country</FormLabel>
+                        <Input id='country' type='text' onChange={handleChange}/>
                     </FormControl>
                     <FormControl>
-                        <FormLabel htmlFor='email'>Enter your phone no</FormLabel>
-                        <Input id='email' type='number' />
+                        <FormLabel htmlFor='pincode'>Enter your pincode</FormLabel>
+                        <Input id='pincode' type='number' onChange={handleChange}/>
+                    </FormControl>
+                    <FormControl>
+                        <FormLabel htmlFor='phone'>Enter your phone no</FormLabel>
+                        <Input id='phone' type='number' onChange={handleChange}/>
                     </FormControl>
                    
                     <Button
+                        onClick={handleSubmit}
                         mt={4}
                         colorScheme='brand.700'
                         type='submit'
@@ -39,6 +57,7 @@ const AddressDetails = () => {
                         Make Payment 
                     </Button>
                 
+                    
             </div>
         </>
     )

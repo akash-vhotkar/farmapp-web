@@ -34,7 +34,7 @@ const url = "http://localhost:4000"
 export default function SimpleCard() {
     const navigate = useNavigate()
     const toast=useToast()
-    const [cart,setCart]=useState([]);
+    const [cart,setCart]=useState(JSON.parse(localStorage.getItem("cart")));
     const [products, setProducts] = useState([]);
     useEffect(() => {
         axios.get(`${url}/api/v1/products`)
@@ -43,7 +43,12 @@ export default function SimpleCard() {
                 setProducts(res.data.products);
             })
             .catch((err) => {
-                // setErrcheck("no products ");
+                toast({
+                    title: 'Server Error',
+                    status: 'error',
+                    duration: 9000,
+                    isClosable: true,
+                })
             })
     }, [])
 
@@ -58,7 +63,6 @@ export default function SimpleCard() {
             })
         }
         else{
-            // cart=JSON.parse(localStorage.getItem("cart"));
             cart.push(item);
             setCart(cart)
             localStorage.setItem("cart",JSON.stringify(cart))

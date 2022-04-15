@@ -40,12 +40,14 @@ const url = "http://localhost:4000"
 
 export default function SimpleCard() {
     const [cost,setCost]=useState();
-    const [quantity,setQuantity]=useState();
     const [numberofItems,setNumberofItems]=useState();
     const navigate = useNavigate()
     const toast = useToast();
     const [showaddresspage , setshowaddresspage ] = useState(false);
     const [products, setProducts] = useState([]);
+    const [shippingInfo,setShippingInfo]=useState({address:'',state:'',city:'',country:'',pincode:'',phone:''})
+    
+    
     useEffect(() => {
         if(localStorage.getItem("cart")==null){
             const cart=[];
@@ -112,7 +114,6 @@ export default function SimpleCard() {
                                     <Th>Product  Image</Th>
                                     <Th>Product name </Th>
                                     <Th>Quantity </Th>
-                                    <Th>Quantity </Th>
                                     <Th>Price </Th>
                                     <Th>Actions</Th>
 
@@ -124,8 +125,7 @@ export default function SimpleCard() {
                                         <Tr key={item._id}  >
                                             <Td> <Avatar name='Product image' src={item.image} /></Td>
                                             <Td>{item.name}</Td>
-                                            <Td><input onChange={(e)=>handleChange(item,e)} type="number"></input></Td>
-                                            <Td>{item.quantity}</Td>
+                                            <Td><input value={item.quantity} onChange={(e)=>handleChange(item,e)} type="number"></input></Td>
                                             <Td isNumeric>{item.price}</Td>
                                             <Td>
                                                 <Button onClick={() => handleDelete(item)} >
@@ -169,7 +169,7 @@ export default function SimpleCard() {
                     </Box>
                     <Box>
                         {
-                            showaddresspage ? <AddressDetails/>:null
+                            showaddresspage ? <AddressDetails shippingInfo={shippingInfo} setShippingInfo={setShippingInfo}/>:null
                         }
                     </Box>
 
