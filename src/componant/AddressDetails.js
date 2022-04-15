@@ -4,39 +4,41 @@ import {
     Input,
     FormHelperText,
     Button,
-    toast
+    toast,
+    Center,
+    Text
 
 } from '@chakra-ui/react';
 import StripeCheckout from 'react-stripe-checkout';
 
 const AddressDetails = () => {
     const onToken = (token) => {
-        if(token){
+        if (token) {
             fetch('/payment/process', {
                 method: 'POST',
                 body: JSON.stringify(token),
             }).then(response => {
                 response.json().then(data => {
                     alert(`We are in business, ${data.email}`);
-                }).catch(error=>{
+                }).catch(error => {
                     /**
                      * todo
                      * payment failed
                      */
-                    
+
                 });
             });
 
         }
-        else{
+        else {
             /***
              * todo
              * payment failed 
              * 
              */
-            
+
         }
-        
+
     }
     const onOpened = () => {
 
@@ -48,6 +50,10 @@ const AddressDetails = () => {
     return (
         <>
             <div>
+                <Center >
+                    <Text> Place Order</Text>
+                </Center>
+
                 <FormControl>
                     <FormLabel htmlFor='email'>Enter your address</FormLabel>
                     <Input id='email' type='text' />

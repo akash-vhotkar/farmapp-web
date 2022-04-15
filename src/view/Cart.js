@@ -24,6 +24,7 @@ import {
     Stack,
     Button,
     Heading,
+    Center,
     Tooltip,
     Text,
     useColorModeValue,
@@ -101,7 +102,10 @@ export default function SimpleCard() {
     return (
         <React.Fragment>
             <DashboardLayout>
-                <Box>
+            <Center  h='100vh' bg='white'>
+            
+                <Box minH={'100vh'}
+                    w={"75%"}>
                     <Box>
                         <Text fontSize={"1.5rem"} fontWeight="bold" padding={"20px"}>Cart</Text>
                     </Box>
@@ -167,13 +171,22 @@ export default function SimpleCard() {
                         </Button>
 
                     </Box>
-                    <Box>
+                    <Center   bg='white'>
+            
+                    <Box
+                    w={"60%"}
+                    bg={"gray.100"}
+                    p={5}
+                  
+                    >
                         {
                             showaddresspage ? <AddressDetails/>:null
                         }
                     </Box>
+                    </Center>
 
                 </Box>
+                </Center>
 
             </DashboardLayout>
         </React.Fragment>
