@@ -24,11 +24,7 @@ const AddressDetails = ({products,cost,shippingInfo,setShippingInfo}) => {
         setShippingInfo({...shippingInfo,[e.target.id]:e.target.value})
         console.log(shippingInfo)
     }
-
-    const handleSubmit=()=>{
-        console.log(shippingInfo)
-        
-    }    
+   
 
     const onToken = (token) => {
         if(token){
@@ -77,13 +73,7 @@ const AddressDetails = ({products,cost,shippingInfo,setShippingInfo}) => {
             })
         }
     }
-    const onOpened = () => {
-
-    }
-    const onClosed = () => {
-
-    }
-
+    
 
     return (
         <>
@@ -110,15 +100,6 @@ const AddressDetails = ({products,cost,shippingInfo,setShippingInfo}) => {
                         <FormLabel htmlFor='phone'>Enter your phone no</FormLabel>
                         <Input id='phone' type='number' onChange={handleChange}/>
                     </FormControl>
-                   
-                    <Button
-                        onClick={handleSubmit}
-                        mt={4}
-                        colorScheme='brand.700'
-                        type='submit'
-                    >
-                        Make Payment 
-                    </Button>
 
                     <StripeCheckout
                     currency='inr'

@@ -18,6 +18,7 @@ import SellerViewProduct  from './view/SellerViewProduct';
 import UpdatePassword from './view/UpdatePassword';
 import Cart from './view/Cart';
 import Orders from './view/Orders';
+import ProductDetails from './view/ProductDetails';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
       <Route path='/seller-orders' element ={<DashboardOrders/>}/>
       <Route path='/cart' element ={<Cart/>}/>      
       <Route path='/orders' element ={<Orders/>}/>
+      <Route path='/product-detail' element={<ProductDetails/>}/>
     </Routes>
     </>
   );

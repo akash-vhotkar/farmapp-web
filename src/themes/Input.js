@@ -6,6 +6,7 @@ const theme = {
     defaultProps: {
         focusBorderColor: 'brand.800',
       },
+      bg: "white"
 
 }
 

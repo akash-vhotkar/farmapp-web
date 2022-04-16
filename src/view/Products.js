@@ -16,6 +16,7 @@ import {
     Link,
     Button,
     Heading,
+    Center,
     Text,
     useColorModeValue,
     useToast,
@@ -78,10 +79,13 @@ export default function SimpleCard() {
     return (
         <React.Fragment>
             <HomeLayout>
+            <Center  h='100vh' bg='white'>
                 <Box
                     minH={'100vh'}
+                    w={"75%"}
 
-                    bg={useColorModeValue('text.100', 'text.100')}>
+
+                    >
 
                     <Flex minH={'30vh'}
                         align={'center'}
@@ -176,6 +180,7 @@ export default function SimpleCard() {
                     </Container>
 
                 </Box>
+                </Center>
             </HomeLayout>
         </React.Fragment>
     );
