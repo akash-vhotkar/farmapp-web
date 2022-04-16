@@ -169,7 +169,7 @@ export default function SimpleCard() {
                     </Box>
                     <Box>
                         {
-                            showaddresspage ? <AddressDetails shippingInfo={shippingInfo} setShippingInfo={setShippingInfo}/>:null
+                            showaddresspage ? <AddressDetails products={products} cost={cost} shippingInfo={shippingInfo} setShippingInfo={setShippingInfo}/>:null
                         }
                     </Box>
 

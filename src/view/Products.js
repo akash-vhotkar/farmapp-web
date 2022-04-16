@@ -34,12 +34,12 @@ const url = "http://localhost:4000"
 export default function SimpleCard() {
     const navigate = useNavigate()
     const toast=useToast()
-    const [cart,setCart]=useState(JSON.parse(localStorage.getItem("cart")));
+    const [cart,setCart]=useState([]);
     const [products, setProducts] = useState([]);
     useEffect(() => {
         axios.get(`${url}/api/v1/products`)
             .then((res) => {
-                console.log(res);
+                console.log(res.data);
                 setProducts(res.data.products);
             })
             .catch((err) => {

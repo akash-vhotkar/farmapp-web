@@ -60,6 +60,7 @@ export default function SimpleCard() {
             navigate('/')
           })
           .catch((err)=>{
+              console.log(err)
             toast({
                 title: 'Server side error',
                 status: 'error',
