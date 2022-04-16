@@ -6,6 +6,7 @@ import {
     Input,
     Checkbox,
     Select,
+    Center,
     Grid,
     Table,
     TableContainer,
@@ -90,6 +91,10 @@ export default function SimpleCard() {
     return (
         <React.Fragment>
             <DashboardLayout>
+            <Center  h='auto' bg='white'>
+                <Box
+                    w={"75%"}
+                    >
                 <Box m={4}>
                     <Box>
                         <Text fontSize={"1.5rem"} fontWeight="bold" padding={"20px"}>Orders</Text>
@@ -98,10 +103,11 @@ export default function SimpleCard() {
                         <Table variant='simple'>
                             <Thead>
                                 <Tr>
-                                    <Th>Product  Image</Th>
-                                    <Th>Product name</Th>
-                                    <Th>Quantity </Th>
-                                    <Th>Price </Th>
+                                    <Th>Order id </Th>
+                                    <Th> Order staus </Th>
+                                    <Th>payment status </Th>
+                                    <Th> No of products</Th>
+                                    <Th>total  </Th>
                                     
                                 </Tr>
                             </Thead>
@@ -125,6 +131,8 @@ export default function SimpleCard() {
                         </Table>
                     </TableContainer>
                 </Box>
+                </Box>
+                </Center>
 
             </DashboardLayout>
         </React.Fragment>
