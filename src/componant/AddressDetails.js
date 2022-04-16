@@ -29,7 +29,7 @@ const AddressDetails = ({products,cost,shippingInfo,setShippingInfo}) => {
     const onToken = (token) => {
         if(token){
             products.forEach((i)=>{
-                i.images=JSON.stringify(i.images[0]);
+                i.images=i.images[0];
             })
             console.log(products)
             const data={
@@ -47,6 +47,7 @@ const AddressDetails = ({products,cost,shippingInfo,setShippingInfo}) => {
                 }})
                 .then((res)=>{
                     console.log(res)
+                    localStorage.removeItem('cart');
                     toast({
                         title: 'Payment Success',
                         status: 'success',

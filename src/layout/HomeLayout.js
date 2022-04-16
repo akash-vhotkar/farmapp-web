@@ -21,6 +21,7 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
+  toast,
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -30,6 +31,8 @@ import {
 } from '@chakra-ui/icons';
 import logo from '../assets/images/logo.png';
 import Footer from '../componant/Footer';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const NAV_ITEMS = [
   {
@@ -45,6 +48,25 @@ const NAV_ITEMS = [
 
  function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
+  const user=localStorage.getItem('profile');
+  const url='http://localhost:4000'
+  const navigate=useNavigate()
+  const handleClick=()=>{
+    axios.get(`${url}/api/v1/logout`)
+    .then(()=>{
+      localStorage.removeItem('profile')
+      localStorage.removeItem("cart")
+      navigate('/signin')
+    })
+    .catch((err)=>{
+      toast({
+        title: 'Server Error',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
+    })
+  }
 
   return (
     <Box>
@@ -135,11 +157,12 @@ const NAV_ITEMS = [
               <MenuList>
                 <MenuItem>Orders</MenuItem>
                 <MenuDivider />
-                <MenuItem>Log Out</MenuItem>
+                <MenuItem onClick={handleClick} >Log Out</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
-          <Button
+          { !user && 
+          <><Button
             as={'a'}
             fontSize={'sm'}
             fontWeight={400}
@@ -157,6 +180,8 @@ const NAV_ITEMS = [
           >
             Sign Up
           </Button>
+          </>
+          }
         </Stack>
       </Flex>
 

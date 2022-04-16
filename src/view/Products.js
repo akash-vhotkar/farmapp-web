@@ -38,9 +38,15 @@ export default function SimpleCard() {
     const [cart,setCart]=useState([]);
     const [products, setProducts] = useState([]);
     useEffect(() => {
+        if(JSON.parse(localStorage.getItem("cart"))==null){
+            setCart([]);
+        }
+        else{
+            setCart(JSON.parse(localStorage.getItem("cart")))
+        }
         axios.get(`${url}/api/v1/products`)
             .then((res) => {
-                console.log(res.data);
+                console.log(res.data.products)
                 setProducts(res.data.products);
             })
             .catch((err) => {
