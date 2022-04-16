@@ -79,7 +79,7 @@ export default function SimpleCard() {
     return (
         <React.Fragment>
             <HomeLayout>
-            <Center  h='100vh' bg='white'>
+            <Center  h='auto' bg='white'>
                 <Box
                     minH={'100vh'}
                     w={"75%"}
