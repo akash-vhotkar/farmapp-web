@@ -155,7 +155,18 @@ const NAV_ITEMS = [
                 />
               </MenuButton>
               <MenuList>
-                <MenuItem>Orders</MenuItem>
+                <MenuItem>
+                <Button
+            as={'a'}
+            fontSize={'sm'}
+            fontWeight={400}
+            variant={'link'}
+            href={'/orders'}>
+              
+            Orders
+          </Button>
+          
+                </MenuItem>
                 <MenuDivider />
                 <MenuItem onClick={handleClick} >Log Out</MenuItem>
               </MenuList>
@@ -168,10 +179,13 @@ const NAV_ITEMS = [
             fontWeight={400}
             variant={'link'}
             href={'/signin'}>
+              
             Sign In
           </Button>
           <Button
-            display={{ base: 'none', md: 'inline-flex' }}
+            as={'a'}
+           
+           display={{ base: 'none', md: 'inline-flex' }}
             fontSize={'sm'}
             fontWeight={600}
             color={'white'}

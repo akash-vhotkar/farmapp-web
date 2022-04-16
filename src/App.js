@@ -3,7 +3,7 @@ import PrivateRoute from './config/PrivateRoute';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Dashboard from './view/Dashboard';
 import Signup from './view/Signup';
-
+import SellerOrderDetails  from './view/DashboardOrderDetails';
 import Product from './view/Products';
 import DashboardOrders from './view/DashboardOrders';
 import DashboardProducts  from './view/DashboardProducts';
@@ -19,6 +19,8 @@ import UpdatePassword from './view/UpdatePassword';
 import Cart from './view/Cart';
 import Orders from './view/Orders';
 import ProductDetails from './view/ProductDetails';
+import OrderDetails  from  './view/OrderDetails';
+
 
 function App() {
   return (
@@ -43,7 +45,9 @@ function App() {
       <Route path='/seller-orders' element ={<DashboardOrders/>}/>
       <Route path='/cart' element ={<Cart/>}/>      
       <Route path='/orders' element ={<Orders/>}/>
-      <Route path='/product-detail' element={<ProductDetails/>}/>
+      <Route path='/product-detail/:id' element={<ProductDetails/>}/>
+      <Route path='/order-detail/:id' element={<OrderDetails/>}/>
+      <Route path='/seller-order-detail/:id' element={<SellerOrderDetails/>}/>
     </Routes>
     </>
   );

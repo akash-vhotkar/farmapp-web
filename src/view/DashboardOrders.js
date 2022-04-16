@@ -29,9 +29,9 @@ import {
 } from '@chakra-ui/react';
 import { DeleteIcon, InfoIcon } from '@chakra-ui/icons';
 import axios from 'axios';
-import {Link, Navigate, useNavigate} from  'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react'
-import React, {useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import DashboardLayout from '../layout/DashboardLayout'
 const url = "http://localhost:4000"
 
@@ -39,52 +39,54 @@ export default function SimpleCard() {
     // const user_id=JSON.parse(localStorage.getItem('profile')).id;
 
     // console.log(user_id);
-    const navigate=useNavigate()
-    const toast=useToast();
-    const [products,setProducts]=useState([]);
-    useEffect(()=>{
+    const navigate = useNavigate()
+    const toast = useToast();
+    const [products, setProducts] = useState([]);
+    useEffect(() => {
         axios.get(`${url}/api/v1/products`)
-          .then((res)=>{
-            console.log(res);
-            setProducts(res.data.products);
-          })
-          .catch((err)=>{
-            toast({
-                title: 'Server side error.',
-                status: 'error',
-                duration: 9000,
-                isClosable: true,
+            .then((res) => {
+                console.log(res);
+                setProducts(res.data.products);
             })
+            .catch((err) => {
+                toast({
+                    title: 'Server side error.',
+                    status: 'error',
+                    duration: 9000,
+                    isClosable: true,
+                })
 
-          })
-    },[])
+            })
+    }, [])
 
-    const handleDelete=((item)=>{
+    const handleDelete = ((item) => {
         console.log(JSON.parse(localStorage.getItem('profile')).token)
-        axios.put(`${url}/api/v1/seller/product/${item._id}`,item,{headers:{
-            cookies:JSON.parse(localStorage.getItem('profile')).token
-        }})
-          .then((res)=>{
-            toast({
-                title: 'Product Deleted',
-                status: 'success',
-                duration: 9000,
-                isClosable: true,
+        axios.put(`${url}/api/v1/seller/product/${item._id}`, item, {
+            headers: {
+                cookies: JSON.parse(localStorage.getItem('profile')).token
+            }
+        })
+            .then((res) => {
+                toast({
+                    title: 'Product Deleted',
+                    status: 'success',
+                    duration: 9000,
+                    isClosable: true,
+                })
+                setProducts(products.filter((product) => {
+                    if (product._id !== item._id) {
+                        return product
+                    }
+                }))
             })
-            setProducts(products.filter((product)=>{
-                if(product._id!==item._id){
-                    return product
-                }
-            }))     
-          })
-          .catch((err)=>{
-            toast({
-                title: 'Server side error.',
-                status: 'error',
-                duration: 9000,
-                isClosable: true,
+            .catch((err) => {
+                toast({
+                    title: 'Server side error.',
+                    status: 'error',
+                    duration: 9000,
+                    isClosable: true,
+                })
             })
-          })
     })
 
     return (
@@ -98,33 +100,77 @@ export default function SimpleCard() {
                         <Table variant='simple'>
                             <Thead>
                                 <Tr>
-                                    <Th>Product  Name</Th>
-                                    <Th>Description</Th>
-                                    <Th>Price </Th>
-                                    <Th>Category</Th>
-                                    <Th>Stock </Th>
-                                    <Th>Ratings </Th>
-                                    <Th> Status </Th>
-                                    
+                                    <Th>Order id </Th>
+                                    <Th> Address</Th>
+                                    <Th>City </Th>
+                                    <Th>State</Th>
+                                    <Th>Pin code </Th>
+                                    <Th>Phone no </Th>
+                                    <Th> Payment status  </Th>
+                                    <Th> Payment done at</Th>
+                                    <Th> Total Amount </Th>
+                                    <Th> Order Placed At </Th>
+                                    <Th> Change Order Status </Th>
+                                    <Th> Cancel Order</Th>
+
                                 </Tr>
                             </Thead>
                             <Tbody>
+                                <Tr>
+                                    <Th>Order id </Th>
+                                    <Th> Address</Th>
+                                    <Th>City </Th>
+                                    <Th>State</Th>
+                                    <Th>Pin code </Th>
+                                    <Th>Phone no </Th>
+                                    <Th> Payment status  </Th>
+                                    <Th> Payment done at</Th>
+                                    <Th> Total Amount </Th>
+                                    <Th> Order Placed At </Th>
+                                    <Td>
+                                        <Stack spacing={3}>
+                                            <Select placeholder='Select option'>
+                                                <option value='Ordered'>Option 1</option>
+                                                <option value='on the way'>Option 2</option>
+                                                <option value='Delivered'>Option 3</option>
+                                            </Select>
+                                        </Stack>
+                                    </Td>
+                                    <Td>
+                                        <Button >
+                                            <Tooltip label='Cancel Order' fontSize='md'>
+                                                <DeleteIcon />
+                                            </Tooltip>
+                                        </Button>
+                                    </Td>
+
+                                </Tr>
                                 {
                                     products.map(item => (
                                         <Tr key={item._id}  >
                                             <Td>{item.name}</Td>
                                             <Td>{item.description}</Td>
                                             <Td isNumeric>{item.price}</Td>
-                          
+
                                             <Td>{item.category}</Td>
                                             <Td> {item.Stock}</Td>
                                             <Td>{item.ratings}</Td>
-                                            <Stack spacing={3}>
-  <Select placeholder='Ordered' size='xs' />
-  <Select placeholder='Pending' size='sm' />
-  <Select placeholder='On the way' size='md' />
-  <Select placeholder='Delivered' size='lg' />
-</Stack>
+                                            <Td>
+                                                <Stack spacing={3}>
+                                                    <Select placeholder='Ordered' size='xs' />
+                                                    <Select placeholder='Pending' size='sm' />
+                                                    <Select placeholder='On the way' size='md' />
+                                                    <Select placeholder='Delivered' size='lg' />
+                                                </Stack>
+                                            </Td>
+                                            <Td>
+                                                <Button onClick={() => handleDelete(item)} >
+                                                    <Tooltip label='Remove product from cart' fontSize='md'>
+                                                        <DeleteIcon />
+                                                    </Tooltip>
+                                                </Button>
+                                            </Td>
+
                                         </Tr>
 
 

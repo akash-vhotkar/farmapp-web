@@ -51,6 +51,7 @@ const SocialButton = ({
 export default function Footer() {
   return (
     <Box
+    mt={"20vh"}
       bg={useColorModeValue('brand.700', 'brand.700')}
       color={useColorModeValue('text.100', 'text.100')}>
       <Container as={Stack} maxW={'6xl'} py={10}>

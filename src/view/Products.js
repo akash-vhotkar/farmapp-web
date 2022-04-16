@@ -85,7 +85,7 @@ export default function SimpleCard() {
     return (
         <React.Fragment>
             <HomeLayout>
-            <Center  h='100vh' bg='white'>
+            <Center  h='auto' bg='white'>
                 <Box
                     minH={'100vh'}
                     w={"75%"}
@@ -112,7 +112,7 @@ export default function SimpleCard() {
 
 
 
-                                    <Box maxW='sm' key={item._id} borderWidth='1px' borderRadius='lg' overflow='hidden'>
+                                    <Box maxW='sm' key={item._id} borderWidth='1px' borderRadius='lg' overflow='hidden' onClick={()=> navigate(`/product-detail/${item._id}`)}>
                                         <Image src={item.images[0]} style={{ width: "300px", height: "300px" }} alt={"image"} />
 
                                         <Box p='6'>
