@@ -40,7 +40,7 @@ function App() {
       <Route path='/centers' element={<Centers/>}></Route>
       <Route path='/center-details' element={<CenterDetails/>}></Route>
       <Route path='/forget-password' element={<ForgetPassword/>}></Route>
-      <Route path='/reset-password/' element={<SellerResetPassword/>}></Route> // before login forgetpassword
+      <Route path='/password/reset/:id' element={<SellerResetPassword/>}></Route> // before login forgetpassword
       <Route path='/update-password/' element={<UpdatePassword/>}></Route>  // after login
       <Route path='/seller-orders' element ={<DashboardOrders/>}/>
       <Route path='/cart' element ={<Cart/>}/>      

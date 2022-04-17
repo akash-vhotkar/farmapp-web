@@ -24,11 +24,13 @@ import {
     Heading,
     Text,
     useColorModeValue,
+    useToast
 } from '@chakra-ui/react';
 import React,{useState} from 'react';
 import DashboardLayout from '../layout/DashboardLayout'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
+
 const url="http://localhost:4000"
 
 export default function SimpleCard() {
@@ -36,19 +38,40 @@ export default function SimpleCard() {
     const navigate=useNavigate();
     const [password,setPassword]=useState();
     const [confirmpassword,setconfirmPassword]=useState();
-    
+    const toast=useToast()
+
     const handleSubmit=()=>{
-        console.log(password,confirmpassword)
-        const token=window.location.search.substring(7)
-        console.log(token)
+        if(!password || !confirmpassword){
+            toast({
+                title: 'kindly fill in all fields',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+              })
+        }
+        else{
+        const token=window.location.pathname.substring(16)
         axios.put(`${url}/api/v1/password/reset/${token}`,{password:password,confirmPassword:confirmpassword})
         .then((res)=>{
             console.log(res)
-            navigate('/signin')
+            toast({
+                title: 'password changed',
+                status: 'success',
+                duration: 9000,
+                isClosable: true,
+              })
+            navigate('/')
         })
         .catch((err)=>{
             console.log(err)
+            toast({
+                title: 'Server error',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+              })
         })
+        }
     }
        
 
@@ -60,7 +83,7 @@ export default function SimpleCard() {
 
     return (
         <React.Fragment>
-            <DashboardLayout>
+            {/* <DashboardLayout> */}
                 <Box>
                     <Box>
                         <Text fontSize={"1.5rem"} fontWeight="bold" padding={"20px"} textAlign={"center"}>Reset Password  </Text>
@@ -86,7 +109,7 @@ export default function SimpleCard() {
                     </Stack>
                 </Box>
 
-            </DashboardLayout>
+            {/* </DashboardLayout> */}
         </React.Fragment>
     );
 }
