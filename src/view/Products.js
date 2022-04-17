@@ -98,8 +98,9 @@ export default function SimpleCard() {
                         justify={'center'}
                         bg={useColorModeValue('text.100', 'text.100')}>
                         <Flex>
-                            <Input type={"text"} width={"500px"} placeholder="Search Product here" />
-                            <Button variant={"solid"} marginLeft={"30px"} >Search </Button>
+                            {/* <Input type={"text"} width={"500px"} placeholder="Search Product here" />
+                            <Button variant={"solid"} marginLeft={"30px"} >Search </Button> */}
+                            Select Your Favourite 
                         </Flex>
 
                     </Flex>
@@ -112,7 +113,7 @@ export default function SimpleCard() {
 
 
 
-                                    <Box maxW='sm' key={item._id} borderWidth='1px' borderRadius='lg' overflow='hidden' onClick={()=> navigate(`/product-detail/${item._id}`)}>
+                                    <Box maxW='sm' key={item._id} borderWidth='1px' borderRadius='lg' overflow='hidden'>
                                         <Image src={item.images[0]} style={{ width: "300px", height: "300px" }} alt={"image"} />
 
                                         <Box p='6'>
@@ -172,7 +173,7 @@ export default function SimpleCard() {
                                                             color={i < item.ratings ? 'teal.500' : 'gray.300'}
                                                         />
                                                     ))}
-                                                <Box as='span' ml='2' color='gray.600' fontSize='sm'>
+                                                <Box onClick={()=> navigate(`/product-detail/${item._id}`)} as='span' ml='2' color='gray.600' fontSize='sm'>
                                                     {3} reviews
                                                 </Box>
                                             </Box>

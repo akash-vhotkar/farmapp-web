@@ -27,6 +27,15 @@ const AddressDetails = ({products,cost,shippingInfo,setShippingInfo}) => {
    
 
     const onToken = (token) => {
+        if(!shippingInfo.address || !shippingInfo.city || !shippingInfo.state || !shippingInfo.country || !shippingInfo.pincode || !shippingInfo.phone){
+            toast({
+                title: 'Kindly fill in all fields',
+                        status: 'error',
+                        duration: 9000,
+                        isClosable: true,
+            })
+        }
+        else{
         if(token){
             products.forEach((i)=>{
                 i.images=i.images[0];
@@ -46,7 +55,6 @@ const AddressDetails = ({products,cost,shippingInfo,setShippingInfo}) => {
                     cookies:JSON.parse(localStorage.getItem('profile')).token
                 }})
                 .then((res)=>{
-                    console.log(res)
                     localStorage.removeItem('cart');
                     toast({
                         title: 'Payment Success',
@@ -54,7 +62,7 @@ const AddressDetails = ({products,cost,shippingInfo,setShippingInfo}) => {
                         duration: 9000,
                         isClosable: true,
                     })
-                    navigate('/seller-orders')
+                    navigate('/orders')
                 })
                 .catch((error)=>{
                     toast({
@@ -72,6 +80,7 @@ const AddressDetails = ({products,cost,shippingInfo,setShippingInfo}) => {
                 duration: 9000,
                 isClosable: true,
             })
+        }
         }
     }
     

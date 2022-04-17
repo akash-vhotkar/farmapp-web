@@ -11,15 +11,88 @@ import {
     Text,
     FormLabel,
     FormControl,
-    Input
+    Input,
+    useToast
 } from '@chakra-ui/react';
-import React from 'react';
+import axios from 'axios';
+import React,{useEffect, useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import HomeLayout from '../layout/HomeLayout';
-export default function socialProfileWithImageHorizontal() {
+
+export default function ProductDetails() {
+    const navigate=useNavigate();
+    const toast=useToast()
+    const [review,setReview]=useState({rating:'',comment:''})
+    const [reviews,setReviews]=useState([])
+    const [product,setProduct]=useState([])
+    const url = "http://localhost:4000"
+
+    useEffect(()=>{
+        const id=window.location.pathname.substring(16)
+        axios.get(`${url}/api/v1/reviews?id=${id}` ,{headers:{
+            cookies:JSON.parse(localStorage.getItem('profile')).token
+        }})
+        .then((res)=>{
+            setReviews(res.data.reviews)
+        })
+        .catch((err)=>{
+            toast({
+                title: 'Server side error',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+              })
+        })
+
+        axios.get(`${url}/api/v1/product/${id}`,{headers:{
+            cookies:JSON.parse(localStorage.getItem('profile')).token
+        }})
+        .then((res)=>{
+            const newproduct=[];
+            newproduct.push(res.data.product)
+            setProduct(newproduct)
+        })
+        .catch((err)=>{
+            toast({
+                title: 'Server side error',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+              })
+        })
+    },[])
+
+    const handleClick=(()=>{
+        console.log(review)
+        const id=window.location.pathname.substring(16)
+
+        axios.put(`${url}/api/v1/review`,{rating:review.rating,comment:review.comment,productId:id}
+        ,{headers:{
+            cookies:JSON.parse(localStorage.getItem('profile')).token
+        }})
+        .then((res)=>{
+            console.log(res)
+        })
+        .catch((err)=>{
+            console.log(err)
+            toast({
+                title: 'Kindly login',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+            })
+        })
+    })
+
+    const handleChange=((e)=>{
+        setReview({...review,[e.target.id]:e.target.value})
+    })
+
     return (
         <React.Fragment>
             <HomeLayout>
-                <Center py={6}>
+                {product.map((item)=>
+                    <Center py={6} key={item._id}>
                     <Stack
                         borderWidth="1px"
                         borderRadius="lg"
@@ -34,7 +107,7 @@ export default function socialProfileWithImageHorizontal() {
                                 objectFit="cover"
                                 boxSize="100%"
                                 src={
-                                    'https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
+                                    item.images[0]
                                 }
                             />
                         </Flex>
@@ -46,16 +119,16 @@ export default function socialProfileWithImageHorizontal() {
                             p={1}
                             pt={2}>
                             <Heading fontSize={'2xl'} fontFamily={'body'}>
-                                Product name
+                                {item.name}
                             </Heading>
                             <Text fontWeight={600} color={'gray.500'} size="sm" mb={4}>
-                                Price
+                               Rs {item.price}
                             </Text>
                             <Text
                                 textAlign={'center'}
 
                                 px={3}>
-                                description of the product
+                                {item.description}
                                 <Link href={'#'} color={'blue.400'}>
                                     #tag
                                 </Link>
@@ -115,6 +188,8 @@ export default function socialProfileWithImageHorizontal() {
 
 
                 </Center>
+                )}
+                
                 <Center w={"75%"}
                 >
                      <Center>
@@ -128,24 +203,29 @@ export default function socialProfileWithImageHorizontal() {
 
                 </Center>
                 <Center>
-                    <Box>
-                        <Text fontSize={"1rem"} fontWeight="bold">email</Text>
-                        <Text>messages of the review</Text>
-
+                    {
+                    reviews.map((review)=>
+                    <Box key={review._id}>
+                        <Text fontSize={"1rem"} fontWeight="bold">{review.name}</Text>
+                        <Text>{review.rating}</Text>
+                        <Text>{review.comment}</Text>
                     </Box>
+                    )
+                    
+                    }
                 </Center>
                 <Center>
                     <Center w={"75%"} m={5}>
                         <Box>
                             <FormControl>
-                                <FormLabel htmlFor='email' >Enter email</FormLabel>
-                                <Input id='email' w={"600px"} size='lg' style={{ width: "100%" }} type='text' />
+                                <FormLabel htmlFor='rating' >Enter rating</FormLabel>
+                                <Input onChange={(e)=>handleChange(e)} id='rating' w={"600px"} size='lg' style={{ width: "100%" }} type='number' />
                             </FormControl>
                             <FormControl>
-                                <FormLabel htmlFor='email'>Enter message</FormLabel>
-                                <Input w={"600px"} id='email' type='text' size='lg' />
+                                <FormLabel htmlFor='comment'>Enter comment</FormLabel>
+                                <Input onChange={(e)=>handleChange(e)} w={"600px"} id='comment' type='text' size='lg' />
                             </FormControl>
-                            <Button w={"600px"} varient="solid">
+                            <Button w={"600px"} varient="solid" onClick={handleClick}>
                                 Add reviews
                             </Button>
                         </Box>

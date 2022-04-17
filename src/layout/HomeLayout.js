@@ -33,6 +33,7 @@ import logo from '../assets/images/logo.png';
 import Footer from '../componant/Footer';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useEffect,useState } from 'react';
 
 const NAV_ITEMS = [
   {
@@ -50,7 +51,27 @@ const NAV_ITEMS = [
   const { isOpen, onToggle } = useDisclosure();
   const user=localStorage.getItem('profile');
   const url='http://localhost:4000'
+  const [cuser,setCuser]=useState({avatar:"",
+  email: "",
+  name: "",
+  role: "",
+  _id:""})
   const navigate=useNavigate()
+  
+  useEffect(()=>{
+    if(localStorage.getItem('profile')!==null){
+    axios.get(`${url}/api/v1/me`,{headers:{
+      cookies:JSON.parse(localStorage.getItem('profile')).token
+    }})
+    .then((res)=>{
+      setCuser(res.data.user)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })  
+  }
+  },[])
+
   const handleClick=()=>{
     axios.get(`${url}/api/v1/logout`)
     .then(()=>{
@@ -131,7 +152,7 @@ const NAV_ITEMS = [
             href={'/products'}>
             Products
           </Button>
-          <Button
+          {user && <Button
             as={'a'}
             fontSize={'sm'}
             fontWeight={400}
@@ -139,6 +160,7 @@ const NAV_ITEMS = [
             href={'/cart'}>
             Cart
           </Button>
+           && 
           <Flex alignItems={'center'}>
             <Menu>
               <MenuButton
@@ -150,7 +172,7 @@ const NAV_ITEMS = [
                 <Avatar
                   size={'sm'}
                   src={
-                    'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
+                    cuser.avatar?.url
                   }
                 />
               </MenuButton>
@@ -172,6 +194,7 @@ const NAV_ITEMS = [
               </MenuList>
             </Menu>
           </Flex>
+          }
           { !user && 
           <><Button
             as={'a'}

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { useState,ReactNode, useEffect } from 'react';
 import {
   IconButton,
   Avatar,
@@ -23,6 +23,8 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  toast,
+  useToast,
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -58,8 +60,44 @@ const LinkItems= [
 export default function SidebarWithHeader(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   console.log("the props dashboard ", props)
+
+  const user=localStorage.getItem('profile');
+  const toast=useToast()  
   
- 
+  const navigate=useNavigate()
+
+  useEffect(()=>{
+    if(localStorage.getItem('profile')!==null){
+    axios.get(`${url}/api/v1/me`,{headers:{
+      cookies:JSON.parse(localStorage.getItem('profile')).token
+    }})
+    .then((res)=>{
+      if(res.data.user.role==='user'){
+        toast({
+          title: 'forbidden',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
+        navigate('/signin')
+        
+      }
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+  else{
+    navigate('/signin')
+    toast({
+      title: 'forbidden',
+      status: 'error',
+      duration: 9000,
+      isClosable: true,
+    })
+}
+  },[])
+
   
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
@@ -154,14 +192,34 @@ const NavItem = ({ icon, link, children, ...rest }) => {
 const MobileNav = ({ onOpen, ...rest }) => {
 
   const navigate = useNavigate();
+  const [cuser,setCuser]=useState({avatar:"",
+  email: "",
+  name: "",
+  role: "",
+  _id:""})
+
+  useEffect(()=>{
+    if(localStorage.getItem('profile')!==null){
+    axios.get(`${url}/api/v1/me`,{headers:{
+      cookies:JSON.parse(localStorage.getItem('profile')).token
+    }})
+    .then((res)=>{
+      setCuser(res.data.user)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+  else{
+    navigate('/signin')
+}
+  },[])
 
   const handleClick=(()=>{
-    console.log("IN")
     axios.get(`${url}/api/v1/logout`)
     .then(()=>{
       localStorage.removeItem('profile')
       localStorage.removeItem("cart")
-      console.log("IN")
       navigate('/signin')
     })
     .catch((err)=>{
@@ -206,7 +264,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 <Avatar
                   size={'sm'}
                   src={
-                    'https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
+                    cuser.avatar?.url
                   }
                 />
                 <VStack
@@ -214,7 +272,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2">
-                  <Text fontSize="sm">Justina Clark</Text>
+                  <Text fontSize="sm">Admin </Text>
                   <Text fontSize="xs" color="gray.600">
                     Admin
                   </Text>

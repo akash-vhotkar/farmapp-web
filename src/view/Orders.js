@@ -40,14 +40,17 @@ export default function SimpleCard() {
     // const user_id=JSON.parse(localStorage.getItem('profile')).id;
 
     // console.log(user_id);
+    const u="http://localhost:4000/order-detail/"
     const navigate=useNavigate()
     const toast=useToast();
-    const [products,setProducts]=useState([]);
+    const [orders,setOrders]=useState([]);
     useEffect(()=>{
-        axios.get(`${url}/api/v1/products`)
+        axios.get(`${url}/api/v1/orders/me`,{headers:{
+            cookies:JSON.parse(localStorage.getItem('profile')).token
+        }})
           .then((res)=>{
             console.log(res);
-            setProducts(res.data.products);
+            setOrders(res.data.orders);
           })
           .catch((err)=>{
             toast({
@@ -61,32 +64,36 @@ export default function SimpleCard() {
     },[])
 
     const handleDelete=((item)=>{
-        console.log(JSON.parse(localStorage.getItem('profile')).token)
-        axios.put(`${url}/api/v1/seller/product/${item._id}`,item,{headers:{
-            cookies:JSON.parse(localStorage.getItem('profile')).token
-        }})
-          .then((res)=>{
-            toast({
-                title: 'Product Deleted',
-                status: 'success',
-                duration: 9000,
-                isClosable: true,
-            })
-            setProducts(products.filter((product)=>{
-                if(product._id!==item._id){
-                    return product
-                }
-            }))     
-          })
-          .catch((err)=>{
-            toast({
-                title: 'Server side error.',
-                status: 'error',
-                duration: 9000,
-                isClosable: true,
-            })
-          })
+        // console.log(JSON.parse(localStorage.getItem('profile')).token)
+        // axios.put(`${url}/api/v1/seller/product/${item._id}`,item,{headers:{
+        //     cookies:JSON.parse(localStorage.getItem('profile')).token
+        // }})
+        //   .then((res)=>{
+        //     toast({
+        //         title: 'Product Deleted',
+        //         status: 'success',
+        //         duration: 9000,
+        //         isClosable: true,
+        //     })
+        //     setProducts(products.filter((product)=>{
+        //         if(product._id!==item._id){
+        //             return product
+        //         }
+        //     }))     
+        //   })
+        //   .catch((err)=>{
+        //     toast({
+        //         title: 'Server side error.',
+        //         status: 'error',
+        //         duration: 9000,
+        //         isClosable: true,
+        //     })
+        //   })
     })
+
+    const handleClick=(id)=>{
+        navigate(`/order-detail/${id}`)
+    }
 
     return (
         <React.Fragment>
@@ -107,33 +114,28 @@ export default function SimpleCard() {
                                     <Th> Order staus </Th>
                                     <Th>payment status </Th>
                                     <Th> No of products</Th>
-                                    <Th>total  </Th>
-                                    
+                                    <Th>Total Amount</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
                                 {
-                                    products.map(item => (
-                                        <Tr key={item._id}  >
-                                            <Td>{item.image}</Td>
-                                            <Td> {item.name }</Td>
-                                            <Td>{item.quntity}</Td>
-                                            <Td isNumeric>{item.price}</Td>
-                             
+                                    orders.map(item => (
+                                        <Tr key={item._id} >
+                                            <Td onClick={()=>handleClick(item._id)}>{item._id}</Td>
+                                            <Td>{item.paymentInfo.status}</Td>
+                                            <Td> {item.orderStatus }</Td>
+                                            <Td>{item.orderItems.length}</Td>
+                                            <Td isNumeric>Rs {item.totalPrice}</Td>
                                         </Tr>
-
-
                                     ))
                                 }
 
                             </Tbody>
-
                         </Table>
                     </TableContainer>
                 </Box>
                 </Box>
                 </Center>
-
             </DashboardLayout>
         </React.Fragment>
     );

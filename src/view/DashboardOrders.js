@@ -41,12 +41,14 @@ export default function SimpleCard() {
     // console.log(user_id);
     const navigate = useNavigate()
     const toast = useToast();
-    const [products, setProducts] = useState([]);
+    const [orders, setOrders] = useState([]);
     useEffect(() => {
-        axios.get(`${url}/api/v1/products`)
+        axios.get(`${url}/api/v1/admin/orders`,{headers:{
+            cookies:JSON.parse(localStorage.getItem('profile')).token
+        }})
             .then((res) => {
                 console.log(res);
-                setProducts(res.data.products);
+                setOrders(res.data.orders);
             })
             .catch((err) => {
                 toast({
@@ -59,9 +61,9 @@ export default function SimpleCard() {
             })
     }, [])
 
-    const handleDelete = ((item) => {
-        console.log(JSON.parse(localStorage.getItem('profile')).token)
-        axios.put(`${url}/api/v1/seller/product/${item._id}`, item, {
+    const handleDelete = ((id) => {
+      
+        axios.delete(`${url}/api/v1/admin/deleteorder/${id}`, {
             headers: {
                 cookies: JSON.parse(localStorage.getItem('profile')).token
             }
@@ -73,9 +75,9 @@ export default function SimpleCard() {
                     duration: 9000,
                     isClosable: true,
                 })
-                setProducts(products.filter((product) => {
-                    if (product._id !== item._id) {
-                        return product
+                setOrders(orders.filter((order) => {
+                    if (order._id !== id) {
+                        return order
                     }
                 }))
             })
@@ -88,6 +90,28 @@ export default function SimpleCard() {
                 })
             })
     })
+
+    const handleChange=(e,id)=>{
+        axios.put(`${url}/api/v1/admin/updateorder/${id}`,{status:e.target.value},{headers:{
+            cookies:JSON.parse(localStorage.getItem('profile')).token
+        }})
+        .then((res)=>{
+            toast({
+                title: 'Status Changed Success',
+                status: 'success',
+                duration: 9000,
+                isClosable: true,
+              })
+        })
+        .catch((err)=>{
+            toast({
+                title: 'Server side error',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+            })
+        })
+    }
 
     return (
         <React.Fragment>
@@ -104,67 +128,46 @@ export default function SimpleCard() {
                                     <Th> Address</Th>
                                     <Th>City </Th>
                                     <Th>State</Th>
+                                    <Th>Country</Th>
                                     <Th>Pin code </Th>
                                     <Th>Phone no </Th>
+                                    <Th> Payment id  </Th>
                                     <Th> Payment status  </Th>
-                                    <Th> Payment done at</Th>
                                     <Th> Total Amount </Th>
                                     <Th> Order Placed At </Th>
                                     <Th> Change Order Status </Th>
+                                    <Th> Delivered At</Th>
                                     <Th> Cancel Order</Th>
 
                                 </Tr>
                             </Thead>
                             <Tbody>
-                                <Tr>
-                                    <Th>Order id </Th>
-                                    <Th> Address</Th>
-                                    <Th>City </Th>
-                                    <Th>State</Th>
-                                    <Th>Pin code </Th>
-                                    <Th>Phone no </Th>
-                                    <Th> Payment status  </Th>
-                                    <Th> Payment done at</Th>
-                                    <Th> Total Amount </Th>
-                                    <Th> Order Placed At </Th>
-                                    <Td>
+                                {
+                                    orders.map(item => (
+                                        <Tr key={item._id}  >
+                                            <Td>{item._id}</Td>
+                                            <Td>{item.shippingInfo.address}</Td>
+                                            <Td>{item.shippingInfo.city}</Td>
+                                            <Td isNumeric>{item.shippingInfo.state}</Td>
+                                            <Td>{item.shippingInfo.country}</Td>
+                                            <Td> {item.shippingInfo.pincode}</Td>
+                                            <Td>{item.shippingInfo.phone}</Td>
+                                            <Td>{item.paymentInfo.id}</Td>
+                                            <Td>{item.paymentInfo.status}</Td>
+                                            <Td>{item.totalPrice}</Td>
+                                            <Td>{item.createdAt}</Td>
+                                            <Td>
                                         <Stack spacing={3}>
-                                            <Select placeholder='Select option'>
-                                                <option value='Ordered'>Option 1</option>
-                                                <option value='on the way'>Option 2</option>
-                                                <option value='Delivered'>Option 3</option>
+                                            <Select placeholder={item.orderStatus}  onChange={(e)=>handleChange(e,item._id)}>
+                                                <option value='Ordered'>Ordered</option>
+                                                <option value='Shipped'>Shipped</option>
+                                                <option value='Delivered'>Delivered</option>
                                             </Select>
                                         </Stack>
-                                    </Td>
-                                    <Td>
-                                        <Button >
-                                            <Tooltip label='Cancel Order' fontSize='md'>
-                                                <DeleteIcon />
-                                            </Tooltip>
-                                        </Button>
-                                    </Td>
-
-                                </Tr>
-                                {
-                                    products.map(item => (
-                                        <Tr key={item._id}  >
-                                            <Td>{item.name}</Td>
-                                            <Td>{item.description}</Td>
-                                            <Td isNumeric>{item.price}</Td>
-
-                                            <Td>{item.category}</Td>
-                                            <Td> {item.Stock}</Td>
-                                            <Td>{item.ratings}</Td>
+                                    </Td>    
+                                    <Td>{item.deliveredAt?item.deliveredAt:item.orderStatus}</Td>
                                             <Td>
-                                                <Stack spacing={3}>
-                                                    <Select placeholder='Ordered' size='xs' />
-                                                    <Select placeholder='Pending' size='sm' />
-                                                    <Select placeholder='On the way' size='md' />
-                                                    <Select placeholder='Delivered' size='lg' />
-                                                </Stack>
-                                            </Td>
-                                            <Td>
-                                                <Button onClick={() => handleDelete(item)} >
+                                                <Button onClick={() => handleDelete(item._id)} >
                                                     <Tooltip label='Remove product from cart' fontSize='md'>
                                                         <DeleteIcon />
                                                     </Tooltip>

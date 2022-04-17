@@ -28,8 +28,9 @@ import {
     Text,
     useColorModeValue,
     Center,
+    toast,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import DashboardLayout from '../layout/DashboardLayout'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -39,13 +40,38 @@ export default function SimpleCard() {
     const [errcheck, setErrcheck] = useState(false);
     const navigate = useNavigate();
     const [profileData, setprofileData] = useState({ name: '', email: '' });
+    const [cuser,setCuser]=useState({avatar:"",
+  email: "",
+  name: "",
+  role: "",
+  _id:""})
 
+    useEffect(()=>{
+        if(localStorage.getItem('profile')!==null){
+            axios.get(`${url}/api/v1/me`,{headers:{
+            cookies:JSON.parse(localStorage.getItem('profile')).token
+            }})
+            .then((res)=>{
+            console.log(res)
+            setCuser(res.data.user)
+            })
+            .catch((err)=>{
+            console.log(err)
+            })
+        }
+    },[])
 
+        
     const handleUpdate = ((e) => {
-        //   if(!profileData.name || !profileData.email){
-        //     setErrcheck("Kindly fill in all fields.")
-        //   }
-        //   else{
+          if(!profileData.name || !profileData.email){
+           toast({
+            title: 'Kindly fill all fields',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+           })
+          }
+          else{
         console.log(profileData)
 
         axios.put(`${url}/api/v1/me/update`, profileData, {
@@ -60,7 +86,7 @@ export default function SimpleCard() {
             .catch((err) => {
                 console.log("ERR")
             })
-        //   }
+          }
     })
 
     const handleReset = (() => {
@@ -82,18 +108,18 @@ export default function SimpleCard() {
                         <Text fontSize={"1.5rem"} fontWeight="bold" padding={"20px"} textAlign={"center"}>Profile  </Text>
                     </Box>
                     <center style={{display:"flex" , alignItems:"center"}}>
-                                <Avatar size='2xl' name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />{' '}
+                                <Avatar size='2xl' name='Segun Adebayo' src={cuser.avatar?.url} />{' '}
                         
                     </center>
                     <p>{errcheck}</p>
                     <Stack spacing={4}>
                         <FormControl id="email">
                             <FormLabel> Name </FormLabel>
-                            <Input onChange={handleChange} name="name" type="text" />
+                            <Input value={cuser.name} onChange={handleChange} name="name" type="text" />
                         </FormControl>
                         <FormControl id="email">
                             <FormLabel>Email </FormLabel>
-                            <Input onChange={handleChange} name="email" type="email" />
+                            <Input value={cuser.email} onChange={handleChange} name="email" type="email" />
 
                         </FormControl>
                         <Stack spacing={10}>

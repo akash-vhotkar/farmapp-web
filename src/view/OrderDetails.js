@@ -40,6 +40,49 @@ const url = "http://localhost:4000"
 
 export default function SimpleCard() {
 
+    const toast=useToast()
+    const [order,setOrder]=useState({
+        _id : '',
+                shippingInfo : {
+                        address : '',
+                        city : "",
+                        state : "",
+                        country : "",
+                        pincode : "",
+                        phone : ""
+                },orderItems:[],
+            paymentInfo: {
+                id: "",
+                status : ""
+            },
+            createdAt:'',
+            orderStatus:''
+        });
+
+    useEffect(()=>{
+       
+        console.log("IN")
+        
+        const id=window.location.pathname.substring(14);
+        console.log(id)
+        axios.get(`${url}/api/v1/order/${id}`,{headers:{
+            cookies:JSON.parse(localStorage.getItem('profile')).token
+        }})
+        .then((res)=>{
+            console.log(res.data.order._id)
+            setOrder(res.data.order)
+        })
+        .catch((err)=>{
+            toast({
+                title: 'Server side error.',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+            })
+
+        })
+    },[])
+
     return (
         <React.Fragment>
             <DashboardLayout>
@@ -55,48 +98,48 @@ export default function SimpleCard() {
                                 <Thead>
                                     <Tr>
                                         <Th>Order id  </Th>
-                                        <Td> id  </Td>
+                                        <Td>{order._id!==null?order._id:''}  </Td>
 
                                     </Tr>
                                 </Thead>
                                 <Tbody>
                                     <Tr>
                                         <Th>Address </Th>
-                                        <Td>address </Td>
+                                        <Td>{order.shippingInfo.address!==null?order.shippingInfo.address:''} </Td>
                                     </Tr>
                                     <Tr>
                                         <Th>
                                             State city
                                         </Th>
-                                        <Td>state </Td>
+                                        <Td>{order.shippingInfo.city!==null?order.shippingInfo.city:''}</Td>
                                     </Tr>
                                     <Tr>
                                         <Th> No of products</Th>
-                                        <Td> 7</Td>
+                                        <Td>{order.orderItems!==null?order.orderItems.length:''}</Td>
                                     </Tr>
                                     <Tr>
                                         <Th> pincode </Th>
-                                        <Td>pincode</Td>
+                                        <Td>{order.shippingInfo.pincode!==null?order.shippingInfo.pincode:''}</Td>
                                     </Tr>
                                     <Tr>
                                         <Th>phone no</Th>
-                                        <Td> 787878</Td>
+                                        <Td>{order.shippingInfo.phone!==null?order.shippingInfo.phone:''}</Td>
                                     </Tr>
                                     <Tr>
                                          <Th>Payment id </Th>
-                                         <Tr> id </Tr>
+                                         <Tr>{order.paymentInfo.id!==null?order.paymentInfo.id:''}</Tr>
                                     </Tr>
                                     <Tr>
                                         <Th> Payment  status</Th>
-                                        <Th> done</Th>
+                                        <Th>{order.paymentInfo.status!==null?order.paymentInfo.status:''}</Th>
                                     </Tr>
                                     <Tr>
                                         <Th>Placed at </Th>
-                                        <Td> 7878</Td>
+                                        <Td>{order.createdAt}</Td>
                                     </Tr>
                                     <Tr>
                                         <Th> Order status </Th>
-                                        <Td> Inprogress </Td>
+                                        <Td>{order.orderStatus}</Td>
                                     </Tr>
 
 
@@ -115,16 +158,19 @@ export default function SimpleCard() {
                                         <Th>Product  Image </Th>
                                         <Th>Product name  </Th>
                                         <Th>Product Price </Th>
-                                        <Th> Product Quntity</Th>
+                                        <Th>Product Quantity</Th>
                                     </Tr>
                                 </Thead>
                                 <Tbody>
+                                    {
+                                    order.orderItems.map((item)=>
                                     <Tr>
-                                        <Td><Avatar name='Oshigaki Kisame' src='https://bit.ly/broken-link' /> </Td>
-                                        <Td>name</Td>
-                                        <Td> price</Td>
-                                        <Td> Quntity </Td>
+                                        <Td><Avatar name='Oshigaki Kisame' src={item.images} /> </Td>
+                                        <Td>{item.name}</Td>
+                                        <Td> {item.price}</Td>
+                                        <Td> {item.quantity} </Td>
                                     </Tr>
+                                )}
                                     
 
                                 </Tbody>
