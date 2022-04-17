@@ -47,7 +47,7 @@ const url="http://localhost:4000"
         .catch((err)=>{
             console.log(err)
             toast({
-              title: 'Invalid Email address',
+              title: 'Invalid Email address or Email not registered',
               status: 'error',
               duration: 9000,
               isClosable: true,

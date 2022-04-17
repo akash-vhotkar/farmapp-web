@@ -73,13 +73,14 @@ export default function SidebarWithHeader(props) {
     }})
     .then((res)=>{
       if(res.data.user.role==='user'){
-        toast({
-          title: 'forbidden',
-          status: 'error',
-          duration: 9000,
-          isClosable: true,
-        })
-        navigate('/signin')
+        // toast({
+        //   title: 'forbidden',
+        //   status: 'error',
+        //   duration: 9000,
+        //   isClosable: true,
+        // })
+        // console.log("IN")
+        // navigate('/signin')
         
       }
     })

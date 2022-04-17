@@ -29,6 +29,7 @@ import {
     useColorModeValue,
     Center,
     toast,
+    useToast,
 } from '@chakra-ui/react';
 import React, { useState,useEffect } from 'react';
 import DashboardLayout from '../layout/DashboardLayout'
@@ -37,6 +38,7 @@ import axios from 'axios'
 const url = "http://localhost:4000"
 
 export default function SimpleCard() {
+    const toast=useToast()
     const [errcheck, setErrcheck] = useState(false);
     const navigate = useNavigate();
     const [profileData, setprofileData] = useState({ name: '', email: '' });
@@ -81,7 +83,7 @@ export default function SimpleCard() {
         })
             .then((res) => {
                 console.log(res);
-                navigate('/')
+                navigate('/seller-products')
             })
             .catch((err) => {
                 console.log("ERR")
@@ -95,6 +97,7 @@ export default function SimpleCard() {
     })
 
     const handleChange = (e) => {
+        console.log(e.target.value)
         setprofileData({ ...profileData, [e.target.name]: e.target.value })
     }
 
@@ -113,13 +116,14 @@ export default function SimpleCard() {
                     </center>
                     <p>{errcheck}</p>
                     <Stack spacing={4}>
-                        <FormControl id="email">
+                    {/* <Input value={cuser.name} onChange={handleChange} name="name" type="text" /> */}
+                        <FormControl id="name">
                             <FormLabel> Name </FormLabel>
-                            <Input value={cuser.name} onChange={handleChange} name="name" type="text" />
+                            <Input name="name" type="text" onChange={handleChange} />
                         </FormControl>
                         <FormControl id="email">
                             <FormLabel>Email </FormLabel>
-                            <Input value={cuser.email} onChange={handleChange} name="email" type="email" />
+                            <Input onChange={handleChange} name="email" type="email" />
 
                         </FormControl>
                         <Stack spacing={10}>

@@ -24,6 +24,7 @@ import {
   Heading,
   Text,
   useColorModeValue,
+  useToast,
 } from '@chakra-ui/react';
 import React,{useState} from 'react';
 import DashboardLayout from '../layout/DashboardLayout'
@@ -33,22 +34,51 @@ const url="http://localhost:4000"
 
 
 const UpdatePassword = () => {
-  
+    const toast=useToast()
     const navigate=useNavigate();
     const [passwords,setPasswords]=useState({oldPassword:'',newPassword:'',confirmPassword:''});
 
     
     const handleSubmit=()=>{
-        axios.put(`${url}/api/v1/password/update`,{oldPassword:passwords.oldPassword,newPassword:passwords.newPassword,confirmPassword:passwords.confirmPassword}
-        ,{headers:{
-          cookies:JSON.parse(localStorage.getItem('profile')).token
-      }})
-        .then((res)=>{
-            navigate('/signin')
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
+        if(!passwords.oldPassword || !passwords.newPassword || !passwords.confirmPassword){
+            toast({
+                title: 'Kindly enter all fields',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+            })
+        }
+        else if(passwords.newPassword!==passwords.confirmPassword){
+            toast({
+                title: 'Password do not match',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+            })
+        }
+        else{
+            axios.put(`${url}/api/v1/password/update`,{oldPassword:passwords.oldPassword,newPassword:passwords.newPassword,confirmPassword:passwords.confirmPassword}
+            ,{headers:{
+            cookies:JSON.parse(localStorage.getItem('profile')).token
+        }})
+            .then((res)=>{
+                navigate('/seller-products')
+                toast({
+                    title: 'Password Updated',
+                    status: 'success',
+                    duration: 9000,
+                    isClosable: true,
+                })
+            })
+            .catch((err)=>{  
+                toast({
+                    title: 'Incorrect Password',
+                    status: 'error',
+                    duration: 9000,
+                    isClosable: true,
+                })
+            })
+        }
     }
        
 
