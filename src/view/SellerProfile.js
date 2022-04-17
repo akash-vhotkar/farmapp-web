@@ -129,15 +129,7 @@ export default function SimpleCard() {
                                 Update Profile
                             </Button>
                         </Stack>
-                        <Stack spacing={10}>
-                            <Link  >
-                                <Button style={{ width: "100%" }} onClick={handleReset}
-                                    variant={"solid"}
-                                >
-                                    Reset Password
-                                </Button>
-                            </Link>
-                        </Stack>
+                        
                     </Stack>
                 </Box>
 
