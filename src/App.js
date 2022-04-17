@@ -20,6 +20,7 @@ import Cart from './view/Cart';
 import Orders from './view/Orders';
 import ProductDetails from './view/ProductDetails';
 import OrderDetails  from  './view/OrderDetails';
+import USerProfile  from './view/UserProfile';
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
       <Route path='/cart' element ={<Cart/>}/>      
       <Route path='/orders' element ={<Orders/>}/>
       <Route path='/product-detail/:id' element={<ProductDetails/>}/>
+      <Route path='/user-profile' element={<USerProfile/>}/>
       <Route path='/order-detail/:id' element={<OrderDetails/>}/>
       <Route path='/seller-order-detail/:id' element={<SellerOrderDetails/>}/>
     </Routes>

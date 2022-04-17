@@ -31,7 +31,7 @@ import {
     toast,
 } from '@chakra-ui/react';
 import React, { useState,useEffect } from 'react';
-import DashboardLayout from '../layout/DashboardLayout'
+import DashboardLayout from '../layout/HomeLayout'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 const url = "http://localhost:4000"
@@ -103,11 +103,15 @@ export default function SimpleCard() {
     return (
         <React.Fragment>
             <DashboardLayout>
+            <Center  h='auto' bg='white'>
+                <Box
+                    w={"75%"}
+                    >
                 <Box>
                     <Box>
                         <Text fontSize={"1.5rem"} fontWeight="bold" padding={"20px"} textAlign={"center"}>Profile  </Text>
                     </Box>
-                    <Center style={{display:"flex" , alignItems:"center"}}>
+                    <Center >
                                 <Avatar size='2xl' name='Segun Adebayo' src={cuser.avatar?.url} />{' '}
                         
                     </Center>
@@ -129,18 +133,11 @@ export default function SimpleCard() {
                                 Update Profile
                             </Button>
                         </Stack>
-                        <Stack spacing={10}>
-                            <Link  >
-                                <Button style={{ width: "100%" }} onClick={handleReset}
-                                    variant={"solid"}
-                                >
-                                    Reset Password
-                                </Button>
-                            </Link>
-                        </Stack>
+ 
                     </Stack>
                 </Box>
-
+</Box>
+</Center>
             </DashboardLayout>
         </React.Fragment>
     );

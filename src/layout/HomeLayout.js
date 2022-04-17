@@ -190,6 +190,18 @@ const NAV_ITEMS = [
           </Button>
           
                 </MenuItem>
+                <MenuItem>
+                <Button
+            as={'a'}
+            fontSize={'sm'}
+            fontWeight={400}
+            variant={'link'}
+            href={'/user-profile'}>
+              
+            Profile
+          </Button>
+          
+                </MenuItem>
                 <MenuDivider />
                 <MenuItem onClick={handleClick} >Log Out</MenuItem>
               </MenuList>

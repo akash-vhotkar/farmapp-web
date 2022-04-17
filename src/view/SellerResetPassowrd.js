@@ -14,6 +14,7 @@ import {
     Thead, Tbody,
     TableCaption,
     Tfoot,
+    Center,
 
     GridItem,
     SkeletonCircle,
@@ -26,7 +27,7 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react';
 import React,{useState} from 'react';
-import DashboardLayout from '../layout/DashboardLayout'
+import DashboardLayout from '../layout/HomeLayout'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 const url="http://localhost:4000"
@@ -61,6 +62,13 @@ export default function SimpleCard() {
     return (
         <React.Fragment>
             <DashboardLayout>
+            <Center  h='auto' bg='white'>
+                <Box
+                    minH={'100vh'}
+                    w={"75%"}
+
+
+                    >
                 <Box>
                     <Box>
                         <Text fontSize={"1.5rem"} fontWeight="bold" padding={"20px"} textAlign={"center"}>Reset Password  </Text>
@@ -85,7 +93,8 @@ export default function SimpleCard() {
                         </Stack>
                     </Stack>
                 </Box>
-
+                </Box>
+</Center>
             </DashboardLayout>
         </React.Fragment>
     );
