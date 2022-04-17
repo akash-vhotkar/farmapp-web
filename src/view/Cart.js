@@ -58,9 +58,6 @@ export default function SimpleCard() {
         }
         else{
             const cart=JSON.parse(localStorage.getItem("cart"));
-            cart.forEach((item)=>{
-                item.quantity=1;
-            })
             setProducts(cart)
             setNumberofItems(cart.length);
             setCost(calc(cart))
@@ -82,6 +79,7 @@ export default function SimpleCard() {
             }
         })
         setProducts(products)
+        localStorage.setItem("cart",JSON.stringify(products))
         setCost(calc(products))
     }
 
@@ -127,7 +125,7 @@ export default function SimpleCard() {
                                 {
                                     products.map(item => (
                                         <Tr key={item._id}  >
-                                            <Td> <Avatar name='Product image' src={item.image} /></Td>
+                                            <Td> <Avatar name='Product image' src={item.images[0]} /></Td>
                                             <Td>{item.name}</Td>
                                             <Td><input value={item.quantity} onChange={(e)=>handleChange(item,e)} type="number"></input></Td>
                                             <Td isNumeric>{item.price}</Td>

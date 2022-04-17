@@ -141,7 +141,10 @@ export default function SimpleCard() {
                                         <Th> Order status </Th>
                                         <Td>{order.orderStatus}</Td>
                                     </Tr>
-
+                                    <Tr>
+                                        <Th> Total Amount </Th>
+                                        <Td>Rs {order.totalPrice}</Td>
+                                    </Tr>
 
                                 </Tbody>
 

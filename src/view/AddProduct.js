@@ -57,7 +57,7 @@ export default function SimpleCard() {
         }})
           .then((res)=>{
             console.log(res);
-            navigate('/')
+            navigate('/seller-products')
           })
           .catch((err)=>{
               console.log(err)

@@ -71,6 +71,7 @@ export default function SimpleCard() {
         }
         else{
             cart.push(item);
+            item.quantity=1
             setCart(cart)
             localStorage.setItem("cart",JSON.stringify(cart))
             toast({

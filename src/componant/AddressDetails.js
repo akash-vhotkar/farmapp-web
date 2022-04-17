@@ -113,7 +113,7 @@ const AddressDetails = ({products,cost,shippingInfo,setShippingInfo}) => {
 
                     <StripeCheckout
                     currency='inr'
-                    amount={cost}
+                    amount={cost*100}
                     token={onToken}
                     stripeKey="pk_test_51HY7eBLXvUk3ZE2kg93zIlH67ftUxoZYGRcem3mddQocLZz3LKwzn1GtPSSNu8GQH4ZJg1Icj4n3HCltZIrfkkZS00incutQb6"
                 />

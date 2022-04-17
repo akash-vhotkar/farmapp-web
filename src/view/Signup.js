@@ -29,7 +29,7 @@ const url="http://localhost:4000"
     const [signUpdata,setSignUpdata]=useState({email:'',name:'',password:'',confirmPassword:'',avatar:''});
     
     const handleSubmit=((e)=>{
-      if(!signUpdata.name ||  !signUpdata.password || !signUpdata.confirmPassword){
+      if(!signUpdata.name ||  !signUpdata.password || !signUpdata.confirmPassword || !signUpdata.avatar){
         toast({
           title: 'Kindly fill in all fields.',
           status: 'error',
@@ -46,7 +46,6 @@ const url="http://localhost:4000"
         })
       }
       else{
-        console.log(signUpdata)
           axios.post(`${url}/api/v1/register`,signUpdata)
           .then((res)=>{
             console.log(res);

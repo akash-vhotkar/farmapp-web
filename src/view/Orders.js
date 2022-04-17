@@ -111,8 +111,8 @@ export default function SimpleCard() {
                             <Thead>
                                 <Tr>
                                     <Th>Order id </Th>
-                                    <Th> Order staus </Th>
-                                    <Th>payment status </Th>
+                                    <Th>Payment staus </Th>
+                                    <Th>Order status </Th>
                                     <Th> No of products</Th>
                                     <Th>Total Amount</Th>
                                 </Tr>

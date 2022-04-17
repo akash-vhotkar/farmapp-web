@@ -44,6 +44,7 @@ export default function SimpleCard() {
         console.log(id)
         axios.get(`${url}/api/v1/product/${id}`)
         .then((res)=>{
+            console.log(res.data.product)
             setproductData({...res.data.product})
         })
         .catch((err)=>{
@@ -59,7 +60,7 @@ export default function SimpleCard() {
     const handleSubmit=((e)=>{
         console.log(productData)
       if(!productData.name ||  !productData.description || !productData.price ||  
-        productData.ratings==='' || !productData.category ||  !productData.Stock){
+        productData.rating==='' || !productData.category ||  !productData.stock){
             toast({
                 title: 'Kindly fill sin all fields',
                 status: 'error',
@@ -138,7 +139,7 @@ export default function SimpleCard() {
                         </FormControl>
                         <FormControl id="rating">
                             <FormLabel>Rating</FormLabel>
-                            <Input value={productData.ratings} onChange={handleChange} name="ratings" type="number" />    
+                            <Input value={productData.rating} onChange={handleChange} name="rating" type="number" />    
                         </FormControl>
                         <FormControl id="img">
                             <FormLabel>Add Image</FormLabel>
@@ -156,7 +157,7 @@ export default function SimpleCard() {
                         </FormControl>
                         <FormControl id="stock">
                             <FormLabel>Stock</FormLabel>
-                            <Input value={productData.Stock} onChange={handleChange} name="Stock" type="number" />    
+                            <Input value={productData.stock} onChange={handleChange} name="stock" type="number" />    
                         </FormControl>
                         <Stack spacing={10}>
                             <Button onClick={handleSubmit}

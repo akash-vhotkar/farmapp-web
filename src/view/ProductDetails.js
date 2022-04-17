@@ -71,7 +71,7 @@ export default function ProductDetails() {
             cookies:JSON.parse(localStorage.getItem('profile')).token
         }})
         .then((res)=>{
-            console.log(res)
+            navigate('/products')
         })
         .catch((err)=>{
             console.log(err)

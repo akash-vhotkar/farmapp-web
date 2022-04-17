@@ -44,7 +44,7 @@ export default function SimpleCard() {
     useEffect(()=>{
         axios.get(`${url}/api/v1/products`)
           .then((res)=>{
-            console.log(res);
+              console.log("INININ")
             setProducts(res.data.products);
           })
           .catch((err)=>{
@@ -60,7 +60,7 @@ export default function SimpleCard() {
 
     const handleDelete=((item)=>{
         console.log(JSON.parse(localStorage.getItem('profile')).token)
-        axios.put(`${url}/api/v1/seller/product/${item._id}`,item,{headers:{
+        axios.put(`${url}/api/v1/deleteproduct/${item._id}`,item,{headers:{
             cookies:JSON.parse(localStorage.getItem('profile')).token
         }})
           .then((res)=>{
@@ -116,8 +116,8 @@ export default function SimpleCard() {
                                             <Td isNumeric>{item.price}</Td>
                           
                                             <Td>{item.category}</Td>
-                                            <Td> {item.Stock}</Td>
-                                            <Td>{item.ratings}</Td>
+                                            <Td> {item.stock}</Td>
+                                            <Td>{item.rating}</Td>
                                             <Td>
                                                 <Link to={`/seller-product-detail?id=${item._id}`}>
                                                     <Tooltip label='Product Details' fontSize='md'>

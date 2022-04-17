@@ -160,7 +160,8 @@ const NAV_ITEMS = [
             href={'/cart'}>
             Cart
           </Button>
-           && 
+          }
+          { user && 
           <Flex alignItems={'center'}>
             <Menu>
               <MenuButton
