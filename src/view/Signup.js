@@ -1,5 +1,6 @@
 import {
-    Flex,
+    Select , 
+  Flex,
     Box,
     FormControl,
     FormLabel,
@@ -26,7 +27,7 @@ const url="http://localhost:4000"
     const toast=useToast()
     const navigate = useNavigate();
     const [errcheck,setErrcheck]=useState('');
-    const [signUpdata,setSignUpdata]=useState({email:'',name:'',password:'',confirmPassword:'',avatar:''});
+    const [signUpdata,setSignUpdata]=useState({email:'',name:'',password:'',confirmPassword:'',avatar:'',role:''});
     
     const handleSubmit=((e)=>{
       if(!signUpdata.name ||  !signUpdata.password || !signUpdata.confirmPassword || !signUpdata.avatar){
@@ -46,6 +47,7 @@ const url="http://localhost:4000"
         })
       }
       else{
+        console.log(signUpdata)
           axios.post(`${url}/api/v1/register`,signUpdata)
           .then((res)=>{
             console.log(res);
@@ -58,18 +60,28 @@ const url="http://localhost:4000"
             }
           })
           .catch((err)=>{
-            console.log(err)
+            if(err.response.data.message){
             toast({
               title: 'User already exists.',
               status: 'error',
               duration: 9000,
               isClosable: true,
             })
+            }
+            else{
+              toast({
+                title: 'Server error.',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+              })
+            }
           })
       }
     })
 
     const handleChange=(e)=>{
+      console.log(e.target.name)
       setSignUpdata({...signUpdata,[e.target.name]:e.target.value})
     }
 
@@ -78,14 +90,16 @@ const url="http://localhost:4000"
       console.log(file)
       if(typeof file==='undefined'){
           console.log("N")
+          setSignUpdata({...setSignUpdata,avatar:''})
       }
-      else if(100<file.size/1024){
+      else if(10<file.size/1024){
           toast({
               title: 'File size cannot exceed 100kb',
               status: 'error',
               duration: 9000,
               isClosable: true,
             })
+            setSignUpdata({...setSignUpdata,avatar:''})
       }
       else{
           var fileReader = new FileReader();
@@ -137,8 +151,15 @@ const url="http://localhost:4000"
                 <FormLabel>Confirm Password</FormLabel>
                 <Input onChange={handleChange} name="confirmPassword" type="password" />
               </FormControl>
+              <Stack spacing={3}>
+                  <Select  name="role" onChange={(e)=>handleChange(e)}>
+                                                <option value='user'>User</option>
+                                                <option value='admin'>Farmer</option>
+                                                
+                                            </Select>
+                                        </Stack>
               <FormControl id="img">
-                            <FormLabel>Add Image</FormLabel>
+                            <FormLabel>Add Profile Image</FormLabel>
                             <input onChange={(e)=>encode(e)} name="avatar" type="file" /> 
                             
                         </FormControl>

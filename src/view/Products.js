@@ -169,7 +169,7 @@ export default function SimpleCard() {
 
                                             <Box display='flex' mt='2' alignItems='center'>
                                                 <Box onClick={()=> navigate(`/product-detail/${item._id}`)} as='span' ml='2' color='gray.600' fontSize='sm'>
-                                                    {3} reviews
+                                                    {item.reviews.length} reviews
                                                 </Box>
                                             </Box>
                                         </Box>

@@ -36,11 +36,10 @@ import DashboardLayout from '../layout/DashboardLayout'
 const url = "http://localhost:4000"
 
 export default function SimpleCard() {
-    // const user_id=JSON.parse(localStorage.getItem('profile')).id;
 
-    // console.log(user_id);
     const navigate = useNavigate()
     const toast = useToast();
+    const [date,setDate]=useState('')
     const [orders, setOrders] = useState([]);
     useEffect(() => {
         axios.get(`${url}/api/v1/admin/orders`,{headers:{
@@ -59,7 +58,7 @@ export default function SimpleCard() {
                 })
 
             })
-    }, [])
+    }, [date])
 
     const handleDelete = ((id) => {
       
@@ -92,10 +91,16 @@ export default function SimpleCard() {
     })
 
     const handleChange=(e,id)=>{
+
+
+
         axios.put(`${url}/api/v1/admin/updateorder/${id}`,{status:e.target.value},{headers:{
             cookies:JSON.parse(localStorage.getItem('profile')).token
         }})
         .then((res)=>{
+            if(e.target.value==="Delivered"){
+                setDate("d")
+            }
             toast({
                 title: 'Status Changed Success',
                 status: 'success',
@@ -169,7 +174,7 @@ export default function SimpleCard() {
                                             </Select>
                                         </Stack>
                                     </Td>    
-                                    <Td>{item.deliveredAt?item.deliveredAt:item.orderStatus}</Td>
+                                    <Td>{item.deliveredAt?item.deliveredAt:'Not yet delivered'}</Td>
                                             <Td>
                                                 <Button onClick={() => handleDelete(item._id)} >
                                                     <Tooltip label='Remove product from cart' fontSize='md'>

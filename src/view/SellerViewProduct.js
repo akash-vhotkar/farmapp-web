@@ -60,7 +60,7 @@ export default function SimpleCard() {
     const handleSubmit=((e)=>{
         console.log(productData)
       if(!productData.name ||  !productData.description || !productData.price ||  
-        productData.rating==='' || !productData.category ||  !productData.stock){
+        productData.rating==='' || !productData.category ||  !productData.stock || !productData.images[0] || !productData.images[1]){
             toast({
                 title: 'Kindly fill sin all fields',
                 status: 'error',
@@ -95,14 +95,20 @@ export default function SimpleCard() {
     const encode=(e,i)=>{
        
         const file=e.target.files[0];
-       
-        if(100<file.size/1024){
+        if(typeof file==='undefined'){
+            productData.images[i]='';
+            setproductData(productData)
+        }
+
+        else if(10<file.size/1024){
             toast({
-                title: 'File size cannot exceed more than 100kb',
+                title: 'File size cannot exceed more than 8kb',
                 status: 'error',
                 duration: 9000,
                 isClosable: true,
               })
+              productData.images[i]='';
+              setproductData(productData)
         }
         else{
             var fileReader = new FileReader();

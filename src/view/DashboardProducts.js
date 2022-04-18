@@ -35,7 +35,7 @@ import DashboardLayout from '../layout/DashboardLayout'
 const url = "http://localhost:4000"
 
 export default function SimpleCard() {
-    // const user_id=JSON.parse(localStorage.getItem('profile')).id;
+    const user_id=JSON.parse(localStorage.getItem('profile')).id;
 
     // console.log(user_id);
     const navigate=useNavigate()
@@ -44,7 +44,7 @@ export default function SimpleCard() {
     useEffect(()=>{
         axios.get(`${url}/api/v1/products`)
           .then((res)=>{
-              console.log("INININ")
+            console.log(res.data.products)
             setProducts(res.data.products);
           })
           .catch((err)=>{
@@ -108,9 +108,10 @@ export default function SimpleCard() {
                                 </Tr>
                             </Thead>
                             <Tbody>
-                                {
-                                    products.map(item => (
-                                        <Tr key={item._id}  >
+                                {products.map((item)=>{
+                                    if(item.user===JSON.parse(localStorage.getItem('profile')).id){
+                                        return  (
+                                            <Tr key={item._id}  >
                                             <Td>{item.name}</Td>
                                             <Td>{item.description}</Td>
                                             <Td isNumeric>{item.price}</Td>
@@ -134,11 +135,10 @@ export default function SimpleCard() {
                                             </Td>
 
                                         </Tr>
-
-
-                                    ))
-                                }
-
+                                        )
+                                    }
+                                })}
+                               
                             </Tbody>
 
                         </Table>

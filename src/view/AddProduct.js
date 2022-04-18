@@ -25,7 +25,7 @@ import {
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import DashboardLayout from '../layout/DashboardLayout'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
@@ -38,10 +38,13 @@ export default function SimpleCard() {
     const navigate=useNavigate();
     const [productData,setproductData]=useState({name:'',description:'',price:'',rating:'',images:[],category:'',stock:''});                                  
 
+    // useEffect(()=>{
+
+    // },[productData])
     
     const handleSubmit=((e)=>{
       if(!productData.name ||  !productData.description || !productData.price ||  
-        !productData.rating || !productData.category ||  !productData.stock || productData.images[0]==='' || productData.images[1]==='' ){
+        !productData.rating || !productData.category ||  !productData.stock || !productData.images[0] || !productData.images[1]){
             toast({
                 title: 'Kindly fill in all fields.',
                 status: 'error',
@@ -50,8 +53,6 @@ export default function SimpleCard() {
               })
       }
       else{
-        console.log(productData)
-        var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
         axios.post(`${url}/api/v1/admin/product/new`,productData,{headers:{
             cookies:JSON.parse(localStorage.getItem('profile')).token
         }})
@@ -77,19 +78,19 @@ export default function SimpleCard() {
 
     const encode=(e,index)=>{
         const file=e.target.files[0];
-        // console.log(file.size)
         if(typeof file==='undefined'){
             productData.images[index]='';
-            console.log(productData.images)
+            setproductData(productData)
         }
-        else if(100<file.size/1024){
+        else if(10<file.size/1024){
             toast({
                 title: 'File size cannot exceed 8 kb',
                 status: 'error',
                 duration: 9000,
                 isClosable: true,
-              })
-              
+            })
+            productData.images[index]='';
+            setproductData(productData)
         }
         else{
             var fileReader = new FileReader();
@@ -99,7 +100,8 @@ export default function SimpleCard() {
                 setproductData(productData)
             }
             fileReader.readAsDataURL(file);
-        } 
+        }
+        
     }
 
     return (
@@ -130,12 +132,12 @@ export default function SimpleCard() {
                         <FormControl id="img">
                             <FormLabel>Add Image</FormLabel>
                             <input onChange={(e)=>encode(e,0)} name="image1" type="file" /> 
-                            {productData.images[0]!=='' && <img alt=" "src={productData.images[0]}></img>}
+                            {/* {productData.images[0]!=='' && <img alt=" "src={productData.images[0]}></img>} */}
                         </FormControl>
                         <FormControl id="img">
                             <FormLabel>Add Image</FormLabel>
                             <input onChange={(e)=>encode(e,1)} name="image2" type="file" /> 
-                            {productData.images[1]!=='' && <img alt=" "src={productData.images[1]}></img>}
+                            {/* {productData.images[1]!=='' && <img alt=" " src={productData.images[1]}></img>} */}
                         </FormControl>
                         <FormControl id="category">
                             <FormLabel>Category</FormLabel>

@@ -38,11 +38,7 @@ export default function ProductDetails() {
         }
 
         const id = window.location.pathname.substring(16)
-        axios.get(`${url}/api/v1/reviews?id=${id}`, {
-            headers: {
-                cookies: JSON.parse(localStorage.getItem('profile')).token
-            }
-        })
+        axios.get(`${url}/api/v1/reviews?id=${id}`)
             .then((res) => {
                 setReviews(res.data.reviews)
             })
@@ -55,11 +51,7 @@ export default function ProductDetails() {
                 })
             })
 
-        axios.get(`${url}/api/v1/product/${id}`, {
-            headers: {
-                cookies: JSON.parse(localStorage.getItem('profile')).token
-            }
-        })
+        axios.get(`${url}/api/v1/product/${id}`)
             .then((res) => {
                 const newproduct = [];
                 newproduct.push(res.data.product)

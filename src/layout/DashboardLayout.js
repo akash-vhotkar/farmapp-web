@@ -273,9 +273,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2">
-                  <Text fontSize="sm">Admin </Text>
+                  <Text fontSize="sm">{cuser.name}</Text>
                   <Text fontSize="xs" color="gray.600">
-                    Admin
+                    {cuser.role}
                   </Text>
                 </VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>

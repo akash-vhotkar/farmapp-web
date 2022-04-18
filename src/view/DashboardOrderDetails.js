@@ -161,7 +161,7 @@ export default function SimpleCard() {
                                         <Th>Product  Image </Th>
                                         <Th>Product name  </Th>
                                         <Th>Product Price </Th>
-                                        <Th> Product Quntity</Th>
+                                        <Th> Product Quantity</Th>
                                     </Tr>
                                 </Thead>
                                 <Tbody>
