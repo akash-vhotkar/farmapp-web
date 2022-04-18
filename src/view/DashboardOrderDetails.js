@@ -98,8 +98,6 @@ export default function SimpleCard() {
                                         <Th> Order status </Th>
                                         <Td> Inprogress </Td>
                                     </Tr>
-
-
                                 </Tbody>
 
                             </Table>

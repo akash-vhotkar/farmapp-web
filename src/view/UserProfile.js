@@ -65,7 +65,7 @@ export default function SimpleCard() {
 
         
     const handleUpdate = ((e) => {
-          if(!profileData.name || !profileData.email){
+          if(!cuser.name || !cuser.email){
            toast({
             title: 'Kindly fill all fields',
             status: 'error',
@@ -74,16 +74,21 @@ export default function SimpleCard() {
            })
           }
           else{
-        console.log(profileData)
-
-        axios.put(`${url}/api/v1/me/update`, profileData, {
+        
+        axios.put(`${url}/api/v1/me/update`, cuser, {
             headers: {
                 cookies: JSON.parse(localStorage.getItem('profile')).token
             }
         })
             .then((res) => {
                 console.log(res);
-                navigate('/')
+                toast({
+                    title: 'Profile data updated successfully.',
+                    status: 'success',
+                    duration: 9000,
+                    isClosable: true,
+                  })
+            
             })
             .catch((err) => {
                 console.log("ERR")
@@ -97,7 +102,7 @@ export default function SimpleCard() {
     })
 
     const handleChange = (e) => {
-        setprofileData({ ...profileData, [e.target.name]: e.target.value })
+        setCuser({ ...cuser, [e.target.name]: e.target.value })
     }
 
 
@@ -121,11 +126,11 @@ export default function SimpleCard() {
                     <Stack spacing={4}>
                         <FormControl id="email">
                             <FormLabel> Name </FormLabel>
-                            <Input  onChange={handleChange} name="name" type="text" />
+                            <Input  onChange={handleChange} name="name" value={cuser.name} type="text" />
                         </FormControl>
                         <FormControl id="email">
                             <FormLabel>Email </FormLabel>
-                            <Input  onChange={handleChange} name="email" type="email" />
+                            <Input  onChange={handleChange} name="email" value={ cuser.email} type="email" />
 
                         </FormControl>
                         <Stack spacing={10}>

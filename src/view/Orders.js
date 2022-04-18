@@ -121,7 +121,7 @@ export default function SimpleCard() {
                                 {
                                     orders.map(item => (
                                         <Tr key={item._id} >
-                                            <Td onClick={()=>handleClick(item._id)}>{item._id}</Td>
+                                            <Td style={{cursor:"pointer", color:"blue"}} onClick={()=>handleClick(item._id)}>{item._id}</Td>
                                             <Td>{item.paymentInfo.status}</Td>
                                             <Td> {item.orderStatus }</Td>
                                             <Td>{item.orderItems.length}</Td>

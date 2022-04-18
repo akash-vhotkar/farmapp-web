@@ -145,7 +145,7 @@ export default function SimpleCard() {
                                 {
                                     orders.map(item => (
                                         <Tr key={item._id}  >
-                                            <Td>{item._id}</Td>
+                                            <Td style={{ color:"blue" ,cursor :"pointer"}}>{item._id}</Td>
                                             <Td>{item.shippingInfo.address}</Td>
                                             <Td>{item.shippingInfo.city}</Td>
                                             <Td isNumeric>{item.shippingInfo.state}</Td>
