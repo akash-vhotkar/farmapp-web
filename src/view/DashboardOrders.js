@@ -113,6 +113,10 @@ export default function SimpleCard() {
         })
     }
 
+    const handleClick=((id)=>{
+        navigate(`/seller-order-detail/${id}`)
+    })
+
     return (
         <React.Fragment>
             <DashboardLayout>
@@ -145,7 +149,7 @@ export default function SimpleCard() {
                                 {
                                     orders.map(item => (
                                         <Tr key={item._id}  >
-                                            <Td style={{ color:"blue" ,cursor :"pointer"}}>{item._id}</Td>
+                                            <Td onClick={()=>handleClick(item._id)} style={{ color:"blue" ,cursor :"pointer"}}>{item._id}</Td>
                                             <Td>{item.shippingInfo.address}</Td>
                                             <Td>{item.shippingInfo.city}</Td>
                                             <Td isNumeric>{item.shippingInfo.state}</Td>

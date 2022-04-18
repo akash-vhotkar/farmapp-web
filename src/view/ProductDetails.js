@@ -26,8 +26,17 @@ export default function ProductDetails() {
     const [reviews, setReviews] = useState([])
     const [product, setProduct] = useState([])
     const url = "http://localhost:4000"
+    const [cart,setCart]=useState([]);
 
     useEffect(() => {
+
+        if(JSON.parse(localStorage.getItem("cart"))===null){
+            setCart([]);
+        }
+        else{
+            setCart(JSON.parse(localStorage.getItem("cart")))
+        }
+
         const id = window.location.pathname.substring(16)
         axios.get(`${url}/api/v1/reviews?id=${id}`, {
             headers: {
@@ -93,6 +102,32 @@ export default function ProductDetails() {
     const handleChange = ((e) => {
         setReview({ ...review, [e.target.id]: e.target.value })
     })
+
+    const addtoCart=()=>{
+        console.log("IN")
+        if(localStorage.getItem("profile")===null){
+            toast({
+                title: 'Kindly login',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+            })
+        }
+        else{
+            console.log(product[0])
+            product[0].quantity=1
+            cart.push(product[0]);
+            product.quantity=1
+            setCart(cart)
+            localStorage.setItem("cart",JSON.stringify(cart))
+            toast({
+                title: 'Product added to Cart',
+                status: 'success',
+                duration: 9000,
+                isClosable: true,
+            })
+        }
+    }
 
     return (
         <React.Fragment>
@@ -172,6 +207,7 @@ export default function ProductDetails() {
                                     justifyContent={'space-between'}
                                     alignItems={'center'}>
                                     <Button
+                                        onClick={addtoCart}
                                         flex={1}
                                         fontSize={'sm'}
                                         rounded={'full'}
@@ -230,15 +266,10 @@ export default function ProductDetails() {
                 <Center>
                     <Center w={"75%"} m={5}>
                         <Box>
+                            
                             <FormControl>
-                                {Array(5)
-                                    .fill('')
-                                    .map((_, i) => (
-                                        <StarIcon
-                                            key={i}
-                                            color={i <1 ? 'gold' : 'gray.300'}
-                                        />
-                                    ))}
+                                <FormLabel htmlFor='rating'>Add rating</FormLabel>
+                                <Input onChange={(e) => handleChange(e)} w={"600px"} id='rating' type='text' size='lg' />
                             </FormControl>
                             <FormControl>
                                 <FormLabel htmlFor='comment'>Enter comment</FormLabel>
