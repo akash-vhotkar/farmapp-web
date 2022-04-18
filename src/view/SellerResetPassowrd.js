@@ -14,6 +14,7 @@ import {
     Thead, Tbody,
     TableCaption,
     Tfoot,
+    Center,
 
     GridItem,
     SkeletonCircle,
@@ -27,7 +28,7 @@ import {
     useToast
 } from '@chakra-ui/react';
 import React,{useState} from 'react';
-import DashboardLayout from '../layout/DashboardLayout'
+import DashboardLayout from '../layout/HomeLayout'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 

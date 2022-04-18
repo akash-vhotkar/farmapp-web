@@ -41,7 +41,7 @@ export default function SimpleCard() {
     
     const handleSubmit=((e)=>{
       if(!productData.name ||  !productData.description || !productData.price ||  
-        !productData.rating || !productData.category ||  !productData.stock || !productData.images.length>0){
+        !productData.rating || !productData.category ||  !productData.stock || productData.images[0]==='' || productData.images[1]==='' ){
             toast({
                 title: 'Kindly fill in all fields.',
                 status: 'error',
@@ -51,7 +51,7 @@ export default function SimpleCard() {
       }
       else{
         console.log(productData)
-
+        var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
         axios.post(`${url}/api/v1/admin/product/new`,productData,{headers:{
             cookies:JSON.parse(localStorage.getItem('profile')).token
         }})
@@ -75,25 +75,27 @@ export default function SimpleCard() {
         setproductData({...productData,[e.target.name]:e.target.value})
     }
 
-    const encode=(e)=>{
+    const encode=(e,index)=>{
         const file=e.target.files[0];
-        console.log(file)
+        // console.log(file.size)
         if(typeof file==='undefined'){
-            console.log("N")
+            productData.images[index]='';
+            console.log(productData.images)
         }
         else if(100<file.size/1024){
             toast({
-                title: 'File size cannot exceed 100kb',
+                title: 'File size cannot exceed 8 kb',
                 status: 'error',
                 duration: 9000,
                 isClosable: true,
               })
+              
         }
         else{
             var fileReader = new FileReader();
             fileReader.onload = function(fileLoadedEvent) {
                 const srcData = fileLoadedEvent.target.result;
-                productData.images.push(srcData)
+                productData.images[index]=srcData;
                 setproductData(productData)
             }
             fileReader.readAsDataURL(file);
@@ -127,12 +129,12 @@ export default function SimpleCard() {
                         </FormControl>
                         <FormControl id="img">
                             <FormLabel>Add Image</FormLabel>
-                            <input onChange={(e)=>encode(e)} name="image1" type="file" /> 
+                            <input onChange={(e)=>encode(e,0)} name="image1" type="file" /> 
                             {productData.images[0]!=='' && <img alt=" "src={productData.images[0]}></img>}
                         </FormControl>
                         <FormControl id="img">
                             <FormLabel>Add Image</FormLabel>
-                            <input onChange={(e)=>encode(e)} name="image2" type="file" /> 
+                            <input onChange={(e)=>encode(e,1)} name="image2" type="file" /> 
                             {productData.images[1]!=='' && <img alt=" "src={productData.images[1]}></img>}
                         </FormControl>
                         <FormControl id="category">

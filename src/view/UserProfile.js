@@ -32,7 +32,7 @@ import {
     useToast,
 } from '@chakra-ui/react';
 import React, { useState,useEffect } from 'react';
-import DashboardLayout from '../layout/DashboardLayout'
+import DashboardLayout from '../layout/HomeLayout'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 const url = "http://localhost:4000"
@@ -83,7 +83,7 @@ export default function SimpleCard() {
         })
             .then((res) => {
                 console.log(res);
-                navigate('/seller-products')
+                navigate('/')
             })
             .catch((err) => {
                 console.log("ERR")
@@ -97,7 +97,6 @@ export default function SimpleCard() {
     })
 
     const handleChange = (e) => {
-        console.log(e.target.value)
         setprofileData({ ...profileData, [e.target.name]: e.target.value })
     }
 
@@ -106,24 +105,27 @@ export default function SimpleCard() {
     return (
         <React.Fragment>
             <DashboardLayout>
+            <Center  h='auto' bg='white'>
+                <Box
+                    w={"75%"}
+                    >
                 <Box>
                     <Box>
                         <Text fontSize={"1.5rem"} fontWeight="bold" padding={"20px"} textAlign={"center"}>Profile  </Text>
                     </Box>
-                    <Center style={{display:"flex" , alignItems:"center"}}>
+                    <Center >
                                 <Avatar size='2xl' name='Segun Adebayo' src={cuser.avatar?.url} />{' '}
                         
                     </Center>
                     <p>{errcheck}</p>
                     <Stack spacing={4}>
-                    {/* <Input value={cuser.name} onChange={handleChange} name="name" type="text" /> */}
-                        <FormControl id="name">
+                        <FormControl id="email">
                             <FormLabel> Name </FormLabel>
-                            <Input name="name" type="text" onChange={handleChange} />
+                            <Input  onChange={handleChange} name="name" type="text" />
                         </FormControl>
                         <FormControl id="email">
                             <FormLabel>Email </FormLabel>
-                            <Input onChange={handleChange} name="email" type="email" />
+                            <Input  onChange={handleChange} name="email" type="email" />
 
                         </FormControl>
                         <Stack spacing={10}>
@@ -133,10 +135,11 @@ export default function SimpleCard() {
                                 Update Profile
                             </Button>
                         </Stack>
-                        
+ 
                     </Stack>
                 </Box>
-
+</Box>
+</Center>
             </DashboardLayout>
         </React.Fragment>
     );

@@ -101,12 +101,14 @@ export default function SimpleCard() {
                         <Flex>
                             {/* <Input type={"text"} width={"500px"} placeholder="Search Product here" />
                             <Button variant={"solid"} marginLeft={"30px"} >Search </Button> */}
-                            Select Your Favourite 
+                             
+                            <Text fontFamily={"bold"} fontWeight="bold" fontSize={"2rem"}> Select Your Favourite</Text>
                         </Flex>
 
                     </Flex>
-                    <Container maxW='2xl'  >
-                        <Box padding={2} color='black' maxW='md'>
+                    <Container maxW='100%'  >
+                        <Box padding={2}  color='black' maxW='100%'>
+                        <Grid templateColumns='repeat(2, 3fr)' gap={6}>
                             {
                                 products.map(item => (
 
@@ -114,8 +116,8 @@ export default function SimpleCard() {
 
 
 
-                                    <Box maxW='sm' key={item._id} borderWidth='1px' borderRadius='lg' overflow='hidden'>
-                                        <Image src={item.images[0]} style={{ width: "300px", height: "300px" }} alt={"image"} />
+                                    <GridItem maxW='sm' key={item._id} borderWidth='1px' borderRadius='lg' overflow='hidden'  >
+                                        <Image src={item.images[0]} style={{ width: "auto", height: "auto" }} alt={"image"} />
 
                                         <Box p='6'>
                                             <Box display='flex' alignItems='baseline'>
@@ -158,7 +160,7 @@ export default function SimpleCard() {
                                                 as={'a'}
                                                 fontSize={'sm'}
                                                 fontWeight={400}
-                                                variant={'link'}
+                                                variant={'solid'}
                                                 // href={'/signin'}
                                                 >
                                                 Add to cart
@@ -166,24 +168,18 @@ export default function SimpleCard() {
 
 
                                             <Box display='flex' mt='2' alignItems='center'>
-                                                {Array(5)
-                                                    .fill('')
-                                                    .map((_, i) => (
-                                                        <StarIcon
-                                                            key={i}
-                                                            color={i < item.ratings ? 'teal.500' : 'gray.300'}
-                                                        />
-                                                    ))}
                                                 <Box onClick={()=> navigate(`/product-detail/${item._id}`)} as='span' ml='2' color='gray.600' fontSize='sm'>
                                                     {3} reviews
                                                 </Box>
                                             </Box>
                                         </Box>
-                                    </Box>
+
+                                    </GridItem>
 
 
                                 ))
                             }
+                            </Grid>
                         </Box>
                     </Container>
 
