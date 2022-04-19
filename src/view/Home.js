@@ -6,12 +6,15 @@ import {
   Container,
   FormControl,
   FormLabel,
+  Spacer,
   Input,
   Checkbox,
+  Center,
   Stack,
   Link,
   Button,
   Heading,
+  Image,
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
@@ -21,6 +24,10 @@ import Navbar from '../layout/HomeLayout';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import banner from '../assets/images/banner.jpg';
+import item1 from '../assets/images/item1.jpg';
+import item2 from '../assets/images/item5.jpg';
+import item3 from '../assets/images/item4.jpg';
+import item6 from '../assets/images/item6.png';
 
 const url = "http://localhost:4000"
 
@@ -62,29 +69,118 @@ export default function SimpleCard() {
     <React.Fragment>
       <HomeLayout>
         <Container maxW='2Xl'
-          style={{ height: "100vh" }} bg='green.400' color='#262626' centerContent backgroundImage={banner} backgroundRepeat={"no-repeat"} backgroundSize={"cover"}>
+          style={{ height: "100vh" }} bg='white' color='#262626' centerContent backgroundSize={"cover"}>
           <Box style={{ margin: "auto" }}>
-            <Text fontSize={"3rem"} fontWeight="bold" color={"white"}> An app for aqua farmers which lets them enhance the yield and profits.</Text>
-          </Box>
-        </Container>
-        <Container maxW='2Xl'
-          style={{marginTop:"50px", marginBottom:"50px", color:"black" }}   centerContent >
-          <Box style={{ margin: "auto" }}>
-            <Text fontSize={"3rem"} fontWeight="bold" color={"black"}>About</Text>
-          </Box>
-        </Container>
-       
-        <Container maxW='container.sm' style={{marginBottom:"100px"}}>
-          <Grid templateColumns='repeat(2, 1fr)' gap={2}>
-            <GridItem colSpan={2} w='100%' h='500' bg='tomato' />
-            <GridItem colStart={4} w='100%' colEnd={6} h='10'  >
-              <Text fontSize={"1rem" } style={{marginBottom:"40px"}}>farmers engaged in aquaculture enhance their yield and quality. With the use of this mobile app, farmers can reach the manufacturers of feed, medicines and supplies directly, eliminating the middlemen in transactions and bringing more transparency to the pricing and business. The platform brings even more value to the farmer by tracking the weather, providing relevant advice as per changing weather conditions based on the latest advancements in aquaculture, helping track the aqua conditions and the health of the fish.</Text>
-              <Text fontSize={"1rem" } style ={{marginBottom:"50px"}}>farmers engaged in aquaculture enhance their yield and quality. With the use of this mobile app, farmers can reach the manufacturers of feed, medicines and supplies directly, eliminating the middlemen in transactions and bringing more transparency to the pricing and business. The platform brings even more value to the farmer by tracking the weather, providing relevant advice as per changing weather conditions based on the latest advancements in aquaculture, helping track the aqua conditions and the health of the fish.</Text>
-             
-              </GridItem>
-          </Grid>
-        </Container>
+            <Flex>
+              <Box pl='4' m={"auto"} w={"50%"}>
+                <Center m={"auto"}>
+                  <Text fontWeight={"bol"} fontSize="5rem">Farmer title</Text> </Center>
+                <Text>quaerat repellendus magni, ea facere nam hic assumenda, quisquam doloribus accusantium placeat asperiores eius at id aliquam? Assumenda culpa aperiam vitae cum, obcaecati non rerum. Dolorem expedita delectus magni, voluptates eveniet quam quasi odit doloremque soluta quis sunt, et pariatur dolor neque eaque dicta reiciendis officia provident obcaecati. Quisquam dicta assume  </Text>
+                <Center mt={"100px"}>
+                <Flex w={"50%"}>
+                  <Spacer />
+                  <Box>
+                    <Button
+                      as={'a'}
+                      w="250px"
 
+                      display={{ base: 'none', md: 'inline-flex' }}
+                      fontSize={'sm'}
+                      fontWeight={600}
+                      color={'white'}
+                      bg={'brand.700'}
+                      href={'/signup'}
+                    >
+                      Sign Up Now
+                    </Button>
+
+                  </Box>
+                </Flex>
+                </Center>
+              </Box>
+              <Box w="50%">
+                <Image w={"100%"} src={item6} />
+              </Box>
+
+            </Flex>
+
+          </Box>
+        </Container>
+        <Center h='auto' bg='white'>
+          <Box
+            minH={'100vh'}
+            w={"75%"}
+
+
+          >
+
+            <Flex minH={'30vh'}
+              align={'center'}
+              justify={'center'}
+              bg={useColorModeValue('text.100', 'text.100')}>
+              <Flex>
+
+
+                <Text fontFamily={"bold"} fontWeight="bold" fontSize={"2rem"}> How we are helping farmers</Text>
+              </Flex>
+
+            </Flex>
+            <Container maxW='100%'  >
+              <Box padding={2} color='black' maxW='100%'>
+                <Flex>
+                  <Box w="50%">
+                    <Image w={"100%"} src={item2} />
+                  </Box>
+                  <Box pl='4' w={"50%"}>
+                    <Center>
+                      <Text fontWeight={"bol"} fontSize="2rem">Farmer title</Text> </Center>
+                    <Text>quaerat repellendus magni, ea facere nam hic assumenda, quisquam doloribus accusantium placeat asperiores eius at id aliquam? Assumenda culpa aperiam vitae cum, obcaecati non rerum. Dolorem expedita delectus magni, voluptates eveniet quam quasi odit doloremque soluta quis sunt, et pariatur dolor neque eaque dicta reiciendis officia provident obcaecati. Quisquam dicta assumenda magnam provident eum odio necessitatibus earum?   </Text>
+                  </Box>
+                </Flex>
+                <Flex>
+                  <Box pl='4' w={"50%"}>
+                    <Center>
+                      <Text fontWeight={"bol"} fontSize="2rem">Farmer title</Text> </Center>
+                    <Text>quaerat repellendus magni, ea facere nam hic assumenda, quisquam doloribus accusantium placeat asperiores eius at id aliquam? Assumenda culpa aperiam vitae cum, obcaecati non rerum. Dolorem expedita delectus magni, voluptates eveniet quam quasi odit doloremque soluta quis sunt, et pariatur dolor neque eaque dicta reiciendis officia provident obcaecati. Quisquam dicta assumenda magnam provident eum odio necessitatibus earum?   </Text>
+                  </Box>
+                  <Box w="50%">
+                    <Image w={"100%"} src={item3} />
+                  </Box>
+
+                </Flex>
+                <Flex>
+                  <Box w="50%">
+                    <Image w={"100%"} src={item2} />
+                  </Box>
+                  <Box pl='4' w={"50%"}>
+                    <Center>
+                      <Text fontWeight={"bol"} fontSize="2rem">Farmer title</Text> </Center>
+                    <Text>quaerat repellendus magni, ea facere nam hic assumenda, quisquam doloribus accusantium placeat asperiores eius at id aliquam? Assumenda culpa aperiam vitae cum, obcaecati non rerum. Dolorem expedita delectus magni, voluptates eveniet quam quasi odit doloremque soluta quis sunt, et pariatur dolor neque eaque dicta reiciendis officia provident obcaecati. Quisquam dicta assumenda magnam provident eum odio necessitatibus earum?   </Text>
+                  </Box>
+                </Flex>
+
+
+              </Box>
+            </Container>
+            <Container maxW='2Xl'
+              style={{ marginTop: "50px", marginBottom: "50px", color: "black" }} centerContent >
+              <Box style={{ margin: "auto" }}>
+                <Text fontSize={"3rem"} fontWeight="bold" color={"black"}>About</Text>
+              </Box>
+            </Container>
+
+            <Container maxW='container.sm' style={{ marginBottom: "100px" }}>
+              <Grid templateColumns='repeat(2, 1fr)' gap={2}>
+                <GridItem colSpan={2} w='100%' h='500' bg='tomato' />
+                <GridItem colStart={4} w='100%' colEnd={6} h='10'  >
+                  <Text fontSize={"1rem"} style={{ marginBottom: "40px" }}>farmers engaged in aquaculture enhance their yield and quality. With the use of this mobile app, farmers can reach the manufacturers of feed, medicines and supplies directly, eliminating the middlemen in transactions and bringing more transparency to the pricing and business. The platform brings even more value to the farmer by tracking the weather, providing relevant advice as per changing weather conditions based on the latest advancements in aquaculture, helping track the aqua conditions and the health of the fish.</Text>
+                  <Text fontSize={"1rem"} style={{ marginBottom: "50px" }}>farmers engaged in aquaculture enhance their yield and quality. With the use of this mobile app, farmers can reach the manufacturers of feed, medicines and supplies directly, eliminating the middlemen in transactions and bringing more transparency to the pricing and business. The platform brings even more value to the farmer by tracking the weather, providing relevant advice as per changing weather conditions based on the latest advancements in aquaculture, helping track the aqua conditions and the health of the fish.</Text>
+
+                </GridItem>
+              </Grid>
+            </Container>
+          </Box>
+        </Center>
       </HomeLayout>
     </React.Fragment>
   );
