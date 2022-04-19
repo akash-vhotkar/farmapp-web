@@ -51,6 +51,7 @@ const AddressDetails = ({products,cost,shippingInfo,setShippingInfo}) => {
                 },
                 totalPrice:cost,
             }
+            console.log(data)
             axios.post(`${url}/order/new`,data,{headers:{
                     cookies:JSON.parse(localStorage.getItem('profile')).token
                 }})

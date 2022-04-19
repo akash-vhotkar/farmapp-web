@@ -48,6 +48,7 @@ export default function SimpleCard() {
             .then((res) => {
                 console.log(res);
                 setOrders(res.data.orders);
+                console.log("IN")
             })
             .catch((err) => {
                 toast({
@@ -119,6 +120,7 @@ export default function SimpleCard() {
     }
 
     const handleClick=((id)=>{
+        
         navigate(`/seller-order-detail/${id}`)
     })
 
@@ -151,9 +153,13 @@ export default function SimpleCard() {
                                 </Tr>
                             </Thead>
                             <Tbody>
+
                                 {
-                                    orders.map(item => (
-                                        <Tr key={item._id}  >
+                                    orders.map((item)=>{
+                                        const users=item.orderItems.map((product)=>product.user)
+                                        if(users.includes(JSON.parse(localStorage.getItem('profile')).id+"")){
+                                            return <>
+                                               <Tr key={item._id}  >
                                             <Td onClick={()=>handleClick(item._id)} style={{ color:"blue" ,cursor :"pointer"}}>{item._id}</Td>
                                             <Td>{item.shippingInfo.address}</Td>
                                             <Td>{item.shippingInfo.city}</Td>
@@ -184,11 +190,11 @@ export default function SimpleCard() {
                                             </Td>
 
                                         </Tr>
-
-
-                                    ))
+                                            </>
+                                        }
+                                    })
                                 }
-
+                                
                             </Tbody>
 
                         </Table>
