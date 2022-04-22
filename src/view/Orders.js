@@ -34,13 +34,13 @@ import {Link, Navigate, useNavigate} from  'react-router-dom';
 import { useToast } from '@chakra-ui/react'
 import React, {useState, useEffect } from 'react';
 import DashboardLayout from '../layout/HomeLayout'
-const url = "http://localhost:4000"
+const url = "https://ecommerce-project-sumit.herokuapp.com"
 
 export default function SimpleCard() {
     // const user_id=JSON.parse(localStorage.getItem('profile')).id;
 
     // console.log(user_id);
-    const u="http://localhost:4000/order-detail/"
+    const u="https://ecommerce-project-sumit.herokuapp.com/order-detail/"
     const navigate=useNavigate()
     const toast=useToast();
     const [orders,setOrders]=useState([]);

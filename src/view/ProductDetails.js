@@ -25,7 +25,7 @@ export default function ProductDetails() {
     const [review, setReview] = useState({ rating: '', comment: '' })
     const [reviews, setReviews] = useState([])
     const [product, setProduct] = useState([])
-    const url = "http://localhost:4000"
+    const url = "https://ecommerce-project-sumit.herokuapp.com"
     const [cart,setCart]=useState([]);
 
     useEffect(() => {

@@ -47,7 +47,7 @@ import Centers  from '../view/Centers';
 import DashboardOrder from '../view/DashboardOrders';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios'
-const url="http://localhost:4000"
+const url="https://ecommerce-project-sumit.herokuapp.com"
 
 const LinkItems= [
   { name: 'Products', icon: FiTrendingUp, link:"/seller-products" ,children:<SellerProducts/> },

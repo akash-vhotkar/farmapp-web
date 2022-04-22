@@ -31,7 +31,7 @@ import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import { FaImages } from 'react-icons/fa';
 import { useToast } from '@chakra-ui/react'
-const url="http://localhost:4000"
+const url="https://ecommerce-project-sumit.herokuapp.com"
 
 export default function SimpleCard() {
     const toast = useToast()

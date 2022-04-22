@@ -16,7 +16,7 @@ import StripeCheckout from 'react-stripe-checkout';
 
 const AddressDetails = ({products,cost,shippingInfo,setShippingInfo}) => {
    
-    const url = "http://localhost:4000/api/v1"    
+    const url = "https://ecommerce-project-sumit.herokuapp.com/api/v1"    
     const toast=useToast()
     const navigate=useNavigate()
 

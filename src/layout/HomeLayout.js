@@ -52,7 +52,7 @@ const NAV_ITEMS = [
  function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
   const user=localStorage.getItem('profile');
-  const url='http://localhost:4000'
+  const url='https://ecommerce-project-sumit.herokuapp.com'
   const [cuser,setCuser]=useState({avatar:"",
   email: "",
   name: "",

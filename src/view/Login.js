@@ -20,7 +20,7 @@ import banner  from '../assets/images/banner1.jpg';
 
 import axios from 'axios'
 import { useToast } from '@chakra-ui/react'
-const url="http://localhost:4000"
+const url="https://ecommerce-project-sumit.herokuapp.com"
 
 
  

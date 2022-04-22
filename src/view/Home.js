@@ -29,7 +29,7 @@ import item3 from '../assets/images/item4.jpg';
 import item6 from '../assets/images/item6.png';
 import banner from '../assets/images/banner.jpg';
 import banner2 from '../assets/images/banner3.jpg';
-const url = "http://localhost:4000"
+const url = "https://ecommerce-project-sumit.herokuapp.com"
 
 
 export default function SimpleCard() {

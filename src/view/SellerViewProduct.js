@@ -30,7 +30,7 @@ import DashboardLayout from '../layout/DashboardLayout'
 import {useNavigate} from 'react-router-dom'
 import { useToast } from '@chakra-ui/react'
 import axios from 'axios'
-const url="http://localhost:4000"
+const url="https://ecommerce-project-sumit.herokuapp.com"
 
 
 export default function SimpleCard() {

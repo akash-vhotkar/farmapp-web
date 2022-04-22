@@ -18,7 +18,7 @@ import Navbar  from  '../layout/HomeLayout';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios'
 import { useToast } from '@chakra-ui/react'
-const url="http://localhost:4000"
+const url="https://ecommerce-project-sumit.herokuapp.com"
 
 
  
@@ -26,7 +26,7 @@ const url="http://localhost:4000"
   export default function SimpleCard() {
     const [email,setEmail]=useState();
     const toast=useToast()
-    const url="http://localhost:4000"
+    const url="https://ecommerce-project-sumit.herokuapp.com"
     const handleChange=(e)=>{
         setEmail(e.target.value)
     }

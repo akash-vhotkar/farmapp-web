@@ -35,7 +35,7 @@ import React, { useState,useEffect } from 'react';
 import DashboardLayout from '../layout/DashboardLayout'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-const url = "http://localhost:4000"
+const url = "https://ecommerce-project-sumit.herokuapp.com"
 
 export default function SimpleCard() {
     const toast=useToast()

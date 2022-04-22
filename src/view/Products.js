@@ -31,7 +31,7 @@ import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import { useState, useEffect } from 'react';
-const url = "http://localhost:4000"
+const url = "https://ecommerce-project-sumit.herokuapp.com"
 
 
 export default function SimpleCard() {
