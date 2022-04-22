@@ -16,6 +16,8 @@ import {
     useToast,
   } from '@chakra-ui/react';
 import React,{useState} from 'react';
+import banner  from '../assets/images/banner1.jpg';
+
 import {useNavigate} from 'react-router-dom';
 import HomeLayout from '../layout/HomeLayout';
 import axios from 'axios'
@@ -119,7 +121,10 @@ const url="http://localhost:4000"
         minH={'100vh'}
         align={'center'}
         justify={'center'}
-        bg={useColorModeValue('text.100', 'text.100')}>
+        backgroundImage= {banner}
+        backgroundRepeat={'no-repeat'}
+        backgroundSize={"cover"}
+        >
         <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
           <Stack align={'center'}>
             <Heading fontSize={'4xl'}>Sign Up to your account</Heading>

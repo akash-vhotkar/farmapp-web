@@ -24,6 +24,8 @@ import {
 import React from 'react';
 import HomeLayout from '../layout/HomeLayout';
 import Navbar from '../layout/HomeLayout';
+import banner from '../assets/images/banner4.jpg';
+
 import { DeleteIcon, InfoIcon, StarIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -87,18 +89,23 @@ export default function SimpleCard() {
     return (
         <React.Fragment>
             <HomeLayout>
-            <Center  h='auto' bg='white'>
+            <Center  h='auto' bg='white'
+             backgroundImage= {banner}
+             backgroundRepeat={'no-repeat'}
+             backgroundSize={"cover"}
+     
+            >
                 <Box
                     minH={'100vh'}
                     w={"75%"}
-
+                   
 
                     >
 
                     <Flex minH={'30vh'}
                         align={'center'}
                         justify={'center'}
-                        bg={useColorModeValue('text.100', 'text.100')}>
+                        >
                         <Flex>
                             {/* <Input type={"text"} width={"500px"} placeholder="Search Product here" />
                             <Button variant={"solid"} marginLeft={"30px"} >Search </Button> */}
@@ -117,7 +124,7 @@ export default function SimpleCard() {
 
 
 
-                                    <GridItem maxW='sm' key={item._id} borderWidth='1px' borderRadius='lg' overflow='hidden'  >
+                                    <GridItem maxW='sm' key={item._id} borderWidth='1px' borderRadius='lg' overflow='hidden'  backgroundColor={"white"} >
                                         <Image src={item.images[0]} style={{ width: "auto", height: "auto" }} alt={"image"} />
 
                                         <Box p='6'>
