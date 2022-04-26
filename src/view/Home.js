@@ -77,7 +77,7 @@ export default function SimpleCard() {
                   <Text fontWeight={"bold"} fontSize="5rem">AGZONE</Text> </Center>
                   <Text fontWeight={"bold"} fontSize="3rem"> ONE OF INDIA'S LEADING MANUFACTURERS AND EXPORTERS OF AGRO PRODUCTS</Text>
                 
-                <Text>Food is one of the most basic human rights and needs: without adequate, nutritious food, people are unable to work and, in some cases, live. Almost a billion people in the world today are chronically undernourished, and many more are food insecure, meaning that they do not know where their next meal will come from. About three-quarters of those in Africa that live off of $1 a day are subsistence farmers.  </Text>
+                <Text>Food is one of the most basic human rights and needs: without adequate, nutritious food, people are unable to work and, in some cases, live.   </Text>
                 <Center mt={"100px"}>
                   <Flex w={"50%"}>
                     <Spacer />
