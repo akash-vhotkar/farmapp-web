@@ -75,7 +75,9 @@ export default function SimpleCard() {
               <Box pl='4' m={"auto"} w={"50%"} color={"white"}>
                 <Center m={"auto"}>
                   <Text fontWeight={"bold"} fontSize="5rem">AGZONE</Text> </Center>
-                <Text>quaerat repellendus magni, ea facere nam hic assumenda, quisquam doloribus accusantium placeat asperiores eius at id aliquam? Assumenda culpa aperiam vitae cum, obcaecati non rerum. Dolorem expedita delectus magni, voluptates eveniet quam quasi odit doloremque soluta quis sunt, et pariatur dolor neque eaque dicta reiciendis officia provident obcaecati. Quisquam dicta assume  </Text>
+                  <Text fontWeight={"bold"} fontSize="3rem"> ONE OF INDIA'S LEADING MANUFACTURERS AND EXPORTERS OF AGRO PRODUCTS</Text>
+                
+                <Text>Food is one of the most basic human rights and needs: without adequate, nutritious food, people are unable to work and, in some cases, live. Almost a billion people in the world today are chronically undernourished, and many more are food insecure, meaning that they do not know where their next meal will come from. About three-quarters of those in Africa that live off of $1 a day are subsistence farmers.  </Text>
                 <Center mt={"100px"}>
                   <Flex w={"50%"}>
                     <Spacer />
@@ -134,15 +136,15 @@ export default function SimpleCard() {
                   </Box>
                   <Box pl='4' w={"50%"}>
                     <Center>
-                      <Text fontWeight={"bol"} fontSize="2rem">Farmer title</Text> </Center>
-                    <Text>quaerat repellendus magni, ea facere nam hic assumenda, quisquam doloribus accusantium placeat asperiores eius at id aliquam? Assumenda culpa aperiam vitae cum, obcaecati non rerum. Dolorem expedita delectus magni, voluptates eveniet quam quasi odit doloremque soluta quis sunt, et pariatur dolor neque eaque dicta reiciendis officia provident obcaecati. Quisquam dicta assumenda magnam provident eum odio necessitatibus earum?   </Text>
+                      <Text fontWeight={"bol"} fontSize="2rem">Protect and preserve the natural environment</Text> </Center>
+                    <Text>Without a healthy natural environment where native flora and fauna live productively, long-term sustainable agricultural practices will fail. Farms must be developed in conjunction and cooperation with local ecology, not at its expense.</Text>
                   </Box>
                 </Flex>
                 <Flex>
                   <Box pl='4' w={"50%"}>
                     <Center>
-                      <Text fontWeight={"bol"} fontSize="2rem">Farmer title</Text> </Center>
-                    <Text>quaerat repellendus magni, ea facere nam hic assumenda, quisquam doloribus accusantium placeat asperiores eius at id aliquam? Assumenda culpa aperiam vitae cum, obcaecati non rerum. Dolorem expedita delectus magni, voluptates eveniet quam quasi odit doloremque soluta quis sunt, et pariatur dolor neque eaque dicta reiciendis officia provident obcaecati. Quisquam dicta assumenda magnam provident eum odio necessitatibus earum?   </Text>
+                      <Text fontWeight={"bol"} fontSize="2rem"> Implement community – specific programs</Text> </Center>
+                    <Text> Every region has unique characteristics and therefore unique needs. Individualized programs that meet the needs of specific regions are more likely to succeed. This is the approach used by the Millennium Villages Project </Text>
                   </Box>
                   <Box w="50%">
                     <Image w={"100%"} src={item3} />
@@ -155,8 +157,8 @@ export default function SimpleCard() {
                   </Box>
                   <Box pl='4' w={"50%"}>
                     <Center>
-                      <Text fontWeight={"bol"} fontSize="2rem">Farmer title</Text> </Center>
-                    <Text>quaerat repellendus magni, ea facere nam hic assumenda, quisquam doloribus accusantium placeat asperiores eius at id aliquam? Assumenda culpa aperiam vitae cum, obcaecati non rerum. Dolorem expedita delectus magni, voluptates eveniet quam quasi odit doloremque soluta quis sunt, et pariatur dolor neque eaque dicta reiciendis officia provident obcaecati. Quisquam dicta assumenda magnam provident eum odio necessitatibus earum?   </Text>
+                      <Text fontWeight={"bol"} fontSize="2rem">Teach and implement sustainable farming techniques</Text> </Center>
+                    <Text>Farming techniques such as agroforestry, organic agriculture, and permaculture are more sustainable and practical on a small, rural scale. Poor farmers need to learn about these techniques and have access to the resources they need in order to implement them. </Text>
                   </Box>
                 </Flex>
               </Box>
@@ -186,7 +188,7 @@ export default function SimpleCard() {
                 <Grid templateColumns='repeat(2, 1fr)' gap={2}>
                   <GridItem colSpan={2} w='100%' h='500' bg='tomato' />
                   <GridItem colStart={4} w='100%' colEnd={6} h='10'  >
-                    <Text fontSize={"1rem"} style={{ marginBottom: "40px" }}>farmers engaged in aquaculture enhance their yield and quality. With the use of this mobile app, farmers can reach the manufacturers of feed, medicines and supplies directly, eliminating the middlemen in transactions and bringing more transparency to the pricing and business. The platform brings even more value to the farmer by tracking the weather, providing relevant advice as per changing weather conditions based on the latest advancements in aquaculture, helping track the aqua conditions and the health of the fish.</Text>
+                    <Text fontSize={"1rem"} style={{ marginBottom: "40px" }}>Food is one of the most basic human rights and needs: without adequate, nutritious food, people are unable to work and, in some cases, live. Almost a billion people in the world today are chronically undernourished, and many more are food insecure, meaning that they do not know where their next meal will come from. About three-quarters of those in Africa that live off of $1 a day are subsistence farmers. Helping subsistence farmers grow more food is key to lifting rural communities out of poverty. </Text>
                     <Text fontSize={"1rem"} style={{ marginBottom: "50px" }}>farmers engaged in aquaculture enhance their yield and quality. With the use of this mobile app, farmers can reach the manufacturers of feed, medicines and supplies directly, eliminating the middlemen in transactions and bringing more transparency to the pricing and business. The platform brings even more value to the farmer by tracking the weather, providing relevant advice as per changing weather conditions based on the latest advancements in aquaculture, helping track the aqua conditions and the health of the fish.</Text>
 
                   </GridItem>
