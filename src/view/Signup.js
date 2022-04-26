@@ -29,7 +29,7 @@ const url="https://ecommerce-project-sumit.herokuapp.com"
     const toast=useToast()
     const navigate = useNavigate();
     const [errcheck,setErrcheck]=useState('');
-    const [signUpdata,setSignUpdata]=useState({email:'',name:'',password:'',confirmPassword:'',avatar:'',role:''});
+    const [signUpdata,setSignUpdata]=useState({email:'',name:'',password:'',confirmPassword:'',avatar:'',role:'user'});
     
     const handleSubmit=((e)=>{
       if(!signUpdata.name ||  !signUpdata.password || !signUpdata.confirmPassword || !signUpdata.avatar){
@@ -157,7 +157,7 @@ const url="https://ecommerce-project-sumit.herokuapp.com"
                 <Input onChange={handleChange} name="confirmPassword" type="password" />
               </FormControl>
               <Stack spacing={3}>
-                  <Select  name="role" onChange={(e)=>handleChange(e)}>
+                  <Select  name="role" onChange={handleChange}>
                                                 <option value='user'>User</option>
                                                 <option value='admin'>Farmer</option>
                                                 

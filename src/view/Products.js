@@ -125,7 +125,7 @@ export default function SimpleCard() {
 
 
                                     <GridItem maxW='sm' key={item._id} borderWidth='1px' borderRadius='lg' overflow='hidden'  backgroundColor={"white"} >
-                                        <Image src={item.images[0]} style={{ width: "auto", height: "auto" }} alt={"image"} />
+                                        <Image src={item.images[0]} style={{ width: "100%", height: "100%" }} alt={"image"} />
 
                                         <Box p='6'>
                                             <Box display='flex' alignItems='baseline'>
